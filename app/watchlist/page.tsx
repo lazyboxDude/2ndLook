@@ -1,12 +1,14 @@
+"use client";
+
 import { products, formatChf } from "@/lib/products";
 import { DdpNote } from "@/components/DdpBadge";
 import BottomTabBar from "@/components/BottomTabBar";
+import { useWatchlist } from "@/lib/watchlist-context";
 import Link from "next/link";
 
-const watched = ["nightwalker-hoodie", "voltage-jacket"];
-
 export default function WatchlistPage() {
-  const items = watched.map((slug) => products.find((p) => p.slug === slug)!);
+  const { isWatched } = useWatchlist();
+  const items = products.filter((p) => isWatched(p.slug));
 
   return (
     <>

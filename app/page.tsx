@@ -88,10 +88,14 @@ export default function HomePage() {
       <section className="px-6 py-12 md:px-16 md:py-16">
         <div className="mx-auto max-w-[1440px]">
           <h2 className="text-xl font-bold text-foreground md:text-2xl">Kategorien verfolgen</h2>
-          <div className="mt-6 grid grid-cols-2 gap-6 md:grid-cols-4">
+          <div className="mt-6 flex flex-col gap-4 md:grid md:grid-cols-4 md:gap-6">
             {categories.map((c) => (
-              <Link key={c.label} href={c.href} className="flex flex-col gap-3">
-                <div className="aspect-square w-full rounded-lg bg-placeholder" />
+              <Link
+                key={c.label}
+                href={c.href}
+                className="flex items-center gap-4 md:flex-col md:items-start md:gap-3"
+              >
+                <div className="h-16 w-16 flex-shrink-0 rounded-lg bg-placeholder md:h-auto md:w-full md:aspect-square" />
                 <span className="text-sm font-semibold text-foreground">{c.label}</span>
               </Link>
             ))}

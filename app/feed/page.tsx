@@ -3,6 +3,7 @@ import PriceCard from "@/components/PriceCard";
 import DdpBadge from "@/components/DdpBadge";
 import BottomTabBar from "@/components/BottomTabBar";
 import StatusTag from "@/components/StatusTag";
+import WatchlistButton from "@/components/WatchlistButton";
 import Link from "next/link";
 
 const chips = ["Alle", "Geprüft", "Bald verfügbar", "Vergriffen", "Auf Watchlist"];
@@ -92,9 +93,7 @@ export default async function FeedPage({ searchParams }: PageProps<"/feed">) {
                 >
                   Zum Händler
                 </Link>
-                <button className="rounded-full border border-foreground px-5 py-2.5 text-sm font-semibold text-foreground">
-                  ♥ Zur Watchlist
-                </button>
+                <WatchlistButton slug={spotlight.slug} />
               </div>
             </div>
           </div>

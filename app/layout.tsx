@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Fira_Sans, Fira_Code } from "next/font/google";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { WatchlistProvider } from "@/lib/watchlist-context";
 import "./globals.css";
 
 const firaSans = Fira_Sans({
@@ -26,11 +27,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="de" className={`${firaSans.variable} ${firaCode.variable}`}>
       <body className="flex min-h-screen flex-col font-sans text-foreground">
-        <Suspense fallback={null}>
-          <Nav />
-        </Suspense>
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <WatchlistProvider>
+          <Suspense fallback={null}>
+            <Nav />
+          </Suspense>
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </WatchlistProvider>
       </body>
     </html>
   );
