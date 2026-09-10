@@ -6,6 +6,7 @@ import DdpBadge from "@/components/DdpBadge";
 import PriceCard from "@/components/PriceCard";
 import PriceAlertWidget from "@/components/PriceAlertWidget";
 import PriceHistoryChart from "@/components/PriceHistoryChart";
+import WatchlistButton from "@/components/WatchlistButton";
 
 export default async function ProductPage({ params }: PageProps<"/produkt/[slug]">) {
   const { slug } = await params;
@@ -74,9 +75,7 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
             <button className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-bg">
               Zum Händler
             </button>
-            <button className="rounded-full border border-foreground px-6 py-3 text-sm font-semibold text-foreground">
-              ♡ Zur Watchlist
-            </button>
+            <WatchlistButton slug={product.slug} />
             <span className="text-xs text-muted">Über Awin, geprüfter Partner</span>
           </div>
 
