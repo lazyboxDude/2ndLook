@@ -8,6 +8,7 @@ export type Product = {
   wasPrice?: number;
   status: ProductStatus;
   retailer?: string;
+  brandSlug?: string;
   lastChecked?: string;
   spec?: string;
   description?: string;
@@ -23,6 +24,7 @@ export const products: Product[] = [
     wasPrice: 149,
     status: "gefallen",
     retailer: "Overkill Berlin",
+    brandSlug: "overkill-berlin",
     lastChecked: "Heute, 09:14",
     material: "480 GSM Fleece, Bio-Baumwolle",
     description:
@@ -36,6 +38,7 @@ export const products: Product[] = [
     wasPrice: 249,
     status: "bald",
     retailer: "Nordkap Store",
+    brandSlug: "nordkap-store",
     lastChecked: "Heute, 09:14",
   },
   {
@@ -74,6 +77,7 @@ export const products: Product[] = [
     wasPrice: 43,
     status: "gefallen",
     retailer: "Fragrance Vault",
+    brandSlug: "fragrance-vault",
     lastChecked: "Heute, 09:14",
     spec: "Extrait de Parfum · Frankreich",
   },
