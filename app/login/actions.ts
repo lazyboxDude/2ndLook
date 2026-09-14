@@ -10,6 +10,10 @@ export async function login(_prevState: LoginState, formData: FormData): Promise
   const password = String(formData.get("password") ?? "");
 
   const supabase = await createClient();
+  if (!supabase) {
+    return { error: "Anmeldung ist derzeit nicht verfügbar." };
+  }
+
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {

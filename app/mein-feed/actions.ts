@@ -5,6 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 
 export async function toggleFollow(brandId: string, follow: boolean) {
   const supabase = await createClient();
+  if (!supabase) return;
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
