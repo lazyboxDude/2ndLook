@@ -19,6 +19,10 @@ export async function signup(_prevState: SignupState, formData: FormData): Promi
   }
 
   const supabase = await createClient();
+  if (!supabase) {
+    return { error: "Registrierung ist derzeit nicht verfügbar." };
+  }
+
   const { data, error } = await supabase.auth.signUp({
     email,
     password,

@@ -6,6 +6,10 @@ import FollowButton from "@/components/FollowButton";
 
 export default async function MeinFeedPage() {
   const supabase = await createClient();
+  if (!supabase) {
+    redirect("/login");
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
