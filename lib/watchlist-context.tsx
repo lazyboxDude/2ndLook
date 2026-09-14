@@ -42,7 +42,7 @@ export function WatchlistProvider({ children }: { children: ReactNode }) {
     let active = true;
 
     async function load() {
-      if (user) {
+      if (user && supabase) {
         const { data } = await supabase
           .from("watchlist")
           .select("product_slug")
@@ -70,7 +70,7 @@ export function WatchlistProvider({ children }: { children: ReactNode }) {
       else next.add(slug);
       setWatched(next);
 
-      if (user) {
+      if (user && supabase) {
         const query = wasWatched
           ? supabase.from("watchlist").delete().eq("user_id", user.id).eq("product_slug", slug)
           : supabase.from("watchlist").insert({ user_id: user.id, product_slug: slug });
