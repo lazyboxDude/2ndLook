@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
 
 const links = [
   { href: "/feed", label: "Feed" },
@@ -14,6 +15,10 @@ export default function Nav() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
+  const { user } = useAuth();
+  const userInitial = user
+    ? ((user.user_metadata?.full_name as string | undefined)?.[0] ?? user.email?.[0] ?? "?").toUpperCase()
+    : null;
 
   const isActive = (href: string) => {
     const [path, query] = href.split("?");
@@ -43,19 +48,41 @@ export default function Nav() {
             </Link>
           ))}
         </nav>
-        <Link
-          href="/watchlist"
-          aria-label="Watchlist"
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M12 21s-7.5-4.6-10-9.3C.5 8 2.2 4.5 5.6 4c2-.3 3.9.6 5 2.2C11.7 4.6 13.6 3.7 15.6 4c3.4.5 5.1 4 3.6 7.7C16.7 16.4 12 21 12 21z"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            />
-          </svg>
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/watchlist"
+            aria-label="Watchlist"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M12 21s-7.5-4.6-10-9.3C.5 8 2.2 4.5 5.6 4c2-.3 3.9.6 5 2.2C11.7 4.6 13.6 3.7 15.6 4c3.4.5 5.1 4 3.6 7.7C16.7 16.4 12 21 12 21z"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              />
+            </svg>
+          </Link>
+          {userInitial ? (
+            <div className="hidden items-center gap-2 md:flex">
+              <Link
+                href="/mein-feed"
+                aria-label="Mein Feed"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-xs font-semibold text-bg"
+              >
+                {userInitial}
+              </Link>
+              <form action="/logout" method="post">
+                <button type="submit" className="text-sm text-muted hover:text-foreground">
+                  Abmelden
+                </button>
+              </form>
+            </div>
+          ) : (
+            <Link href="/login" className="hidden text-sm font-semibold text-foreground md:block">
+              Login
+            </Link>
+          )}
+        </div>
       </div>
     </header>
   );
