@@ -1,102 +1,74 @@
 import Link from "next/link";
-import { products, formatChf } from "@/lib/products";
+import { products } from "@/lib/products";
+import { getBlogPostBySlug } from "@/lib/blog";
 import PriceCard from "@/components/PriceCard";
-import DdpBadge from "@/components/DdpBadge";
 
-const featured = ["wool-overshirt", "nightwalker-hoodie", "ambre-nomade", "ghost-cargo-pants"];
-const deals = ["nightwalker-hoodie", "voltage-jacket", "ambre-nomade"];
-const categories = [
-  { label: "Streetwear", href: "/feed?category=streetwear" },
-  { label: "Sneaker", href: "/feed" },
-  { label: "Accessoires", href: "/feed" },
-  { label: "Düfte", href: "/feed?category=duefte" },
+const heroPostSlug = "die-besten-streetwear-marken-2026";
+const dealSlugs = ["nightwalker-hoodie", "voltage-jacket", "ambre-nomade"];
+const journalSlugs = [
+  "restock-kalender-diese-drops-lohnen-sich",
+  "so-liest-du-einen-preisverlauf-richtig",
+  "herbst-ausblick-preise-im-vergleich",
 ];
 
 export default function HomePage() {
-  const featuredProducts = featured.map((slug) => products.find((p) => p.slug === slug)!);
-  const dealProducts = deals.map((slug) => products.find((p) => p.slug === slug)!);
+  const heroPost = getBlogPostBySlug(heroPostSlug)!;
+  const dealProducts = dealSlugs.map((slug) => products.find((p) => p.slug === slug)!);
+  const journalPosts = journalSlugs.map((slug) => getBlogPostBySlug(slug)!);
 
   return (
     <>
-      <section className="bg-surface-hero px-6 py-12 md:px-16 md:py-20">
-        <div className="mx-auto flex max-w-[1440px] flex-col gap-8 md:flex-row md:items-center md:gap-16">
-          <div className="flex flex-col gap-4 md:max-w-[480px]">
-            <h1 className="text-3xl font-bold leading-tight text-foreground md:text-5xl">
-              Bevor du kaufst, ein zweiter Blick auf den Preis.
-            </h1>
-            <p className="text-sm text-muted md:text-base">
-              Wir verfolgen Preise für Streetwear, Sneaker und Nischendüfte über mehrere Händler
-              hinweg und melden dir, wenn ein Preis wirklich fällt.
-            </p>
-            <Link
-              href="/feed"
-              className="w-fit rounded-full border border-foreground px-6 py-3 text-sm font-semibold text-foreground"
-            >
-              Preisverlauf ansehen
-            </Link>
-          </div>
-          <div className="aspect-[4/3] w-full rounded-xl bg-placeholder md:flex-1" />
+      <section className="flex flex-col md:flex-row">
+        <Link
+          href={`/blog/${heroPost.slug}`}
+          className="relative block min-h-[360px] w-full overflow-hidden bg-slate-800 md:min-h-[640px] md:w-[65%]"
+        >
+          <span className="absolute left-7 top-7 h-5 w-5 border-l-2 border-t-2 border-white/80" />
+          <span className="absolute bottom-7 right-7 h-5 w-5 border-b-2 border-r-2 border-white/80" />
+        </Link>
+        <div className="flex w-full flex-col justify-center gap-5 bg-white px-8 py-14 md:w-[35%] md:px-16">
+          <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
+            {heroPost.categoryLabel} · Journal
+          </span>
+          <h1 className="font-serif text-3xl font-bold leading-tight text-foreground md:text-4xl">
+            {heroPost.title}
+          </h1>
+          <p className="max-w-[380px] text-sm text-muted">{heroPost.excerpt}</p>
+          <Link
+            href={`/blog/${heroPost.slug}`}
+            className="w-fit rounded-full bg-primary px-6 py-3 text-sm font-semibold text-bg"
+          >
+            Jetzt lesen
+          </Link>
         </div>
       </section>
 
-      <section className="px-6 py-12 md:px-16 md:py-16">
+      <section className="px-6 py-14 md:px-16 md:py-20">
         <div className="mx-auto max-w-[1440px]">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-foreground md:text-2xl">Zuletzt aktualisiert</h2>
-            <Link href="/feed" className="text-sm font-medium text-primary">
-              Alle ansehen
-            </Link>
-          </div>
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
-            {featuredProducts.map((p) => (
+          <h2 className="font-serif text-2xl font-bold text-foreground md:text-3xl">
+            Diese Woche im Preis reduziert
+          </h2>
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+            {dealProducts.map((p) => (
               <PriceCard key={p.slug} product={p} />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-foreground px-6 py-12 md:px-16 md:py-16">
+      <section className="px-6 pb-20 md:px-16 md:pb-24">
         <div className="mx-auto max-w-[1440px]">
-          <h2 className="text-xl font-bold text-bg md:text-2xl">Diese Woche im Preis reduziert</h2>
-          <div className="mt-6 flex flex-col gap-6">
-            {dealProducts.map((p) => (
-              <div
-                key={p.slug}
-                className="flex flex-col gap-2 border-b border-white/10 pb-6 last:border-0 md:flex-row md:items-center md:justify-between md:gap-4 md:pb-4"
-              >
-                <span className="font-semibold text-bg">{p.name}</span>
-                <span className="text-sm text-muted-light">
-                  Bei {p.retailer} · Zuletzt geprüft: heute
+          <h2 className="font-serif text-2xl font-bold text-foreground md:text-3xl">
+            Aus dem Journal
+          </h2>
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+            {journalPosts.map((post) => (
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="flex flex-col gap-3">
+                <div className="aspect-[4/3] w-full rounded bg-slate-800 shadow-lg shadow-slate-900/10" />
+                <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
+                  {post.categoryLabel}
                 </span>
-                <div className="flex items-center gap-3">
-                  {p.wasPrice && (
-                    <span className="font-mono text-sm text-muted-light line-through">
-                      {formatChf(p.wasPrice)}
-                    </span>
-                  )}
-                  <span className="font-mono text-sm font-bold text-green-bright">
-                    {formatChf(p.price)}
-                  </span>
-                  <DdpBadge variant="dark" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-6 py-12 md:px-16 md:py-16">
-        <div className="mx-auto max-w-[1440px]">
-          <h2 className="text-xl font-bold text-foreground md:text-2xl">Kategorien verfolgen</h2>
-          <div className="mt-6 flex flex-col gap-4 md:grid md:grid-cols-4 md:gap-6">
-            {categories.map((c) => (
-              <Link
-                key={c.label}
-                href={c.href}
-                className="flex items-center gap-4 md:flex-col md:items-start md:gap-3"
-              >
-                <div className="h-16 w-16 flex-shrink-0 rounded-lg bg-placeholder md:h-auto md:w-full md:aspect-square" />
-                <span className="text-sm font-semibold text-foreground">{c.label}</span>
+                <span className="font-serif text-lg font-bold text-foreground">{post.title}</span>
               </Link>
             ))}
           </div>
