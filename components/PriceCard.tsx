@@ -13,7 +13,7 @@ export default function PriceCard({ product }: { product: Product }) {
 
   return (
     <Link href={`/produkt/${product.slug}`} className="flex flex-col gap-2">
-      <div className="relative aspect-square w-full rounded-lg bg-placeholder">
+      <div className="relative aspect-square w-full rounded-lg bg-placeholder shadow-lg shadow-slate-900/10">
         <button
           type="button"
           onClick={(e) => {
@@ -38,7 +38,14 @@ export default function PriceCard({ product }: { product: Product }) {
       </div>
       <StatusTag status={product.status} />
       <span className="text-sm font-semibold text-foreground">{product.name}</span>
-      <span className="font-mono text-sm text-muted">{formatChf(product.price)}</span>
+      {product.wasPrice ? (
+        <span className="flex items-baseline gap-2 font-mono text-sm">
+          <span className="font-bold text-green">{formatChf(product.price)}</span>
+          <span className="text-muted line-through">{formatChf(product.wasPrice)}</span>
+        </span>
+      ) : (
+        <span className="font-mono text-sm text-muted">{formatChf(product.price)}</span>
+      )}
       <DdpNote />
     </Link>
   );

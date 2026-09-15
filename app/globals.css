@@ -4,8 +4,8 @@
   --color-bg: #f8fafc;
   --color-surface-hero: #dbeafe;
   --color-placeholder: #e2e8f0;
-  --color-foreground: #1e3a8a;
-  --color-primary: #1e40af;
+  --color-foreground: #111827;
+  --color-primary: #111827;
   --color-muted: #475569;
   --color-muted-light: #b9c4e0;
   --color-green: #16a34a;
@@ -16,6 +16,7 @@
 
   --font-sans: var(--font-fira-sans);
   --font-mono: var(--font-fira-code);
+  --font-serif: var(--font-playfair);
 }
 
 body {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Fira_Sans, Fira_Code } from "next/font/google";
+import { Fira_Sans, Fira_Code, Playfair_Display } from "next/font/google";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { WatchlistProvider } from "@/lib/watchlist-context";
@@ -19,6 +19,12 @@ const firaCode = Fira_Code({
   weight: ["400", "500", "600", "700"],
 });
 
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["700"],
+});
+
 export const metadata: Metadata = {
   title: "2ndLook",
   description: "Preise für Streetwear, Sneaker und Nischendüfte im Blick.",
@@ -26,7 +32,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="de" className={`${firaSans.variable} ${firaCode.variable}`}>
+    <html lang="de" className={`${firaSans.variable} ${firaCode.variable} ${playfairDisplay.variable}`}>
       <body className="flex min-h-screen flex-col font-sans text-foreground">
         <AuthProvider>
           <WatchlistProvider>
