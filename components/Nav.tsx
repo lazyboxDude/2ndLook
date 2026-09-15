@@ -16,7 +16,7 @@ const loggedOutLinks = [{ href: "/blog", label: "Journal" }];
 export default function Nav() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const category = searchParams.get("category");
+  const category = searchParams?.get("category") ?? null;
   const { user } = useAuth();
   const userInitial = user
     ? ((user.user_metadata?.full_name as string | undefined)?.[0] ?? user.email?.[0] ?? "?").toUpperCase()

@@ -22,7 +22,7 @@ export default function BottomTabBar() {
 function BottomTabBarInner() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const category = searchParams.get("category");
+  const category = searchParams?.get("category") ?? null;
 
   const isActive = (href: string) => {
     const [path, query] = href.split("?");
