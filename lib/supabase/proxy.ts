@@ -34,11 +34,30 @@ export async function updateSession(request: NextRequest) {
   // Do not run code between createServerClient and supabase.auth.getClaims().
   // A simple mistake could make it very hard to debug issues with users
   // being randomly logged out.
-  await supabase.auth.getClaims();
+  const { data } = await supabase.auth.getClaims();
 
-  // 2ndLook is a public catalog site — most pages work without a session.
-  // Auth-only actions (watchlist, price alerts, "Mein Feed") check the user
-  // in their own server components instead of a blanket proxy redirect.
+  // Everything is gated behind login except the landing page, the Journal
+  // (blog), auth flows and the legal pages. Only these route prefixes are
+  // reachable without a session.
+  const publicPrefixes = [
+    "/blog",
+    "/login",
+    "/registrierung",
+    "/logout",
+    "/impressum",
+    "/datenschutz",
+    "/agb",
+    "/widerruf-affiliate",
+  ];
+  const { pathname } = request.nextUrl;
+  const isPublic = pathname === "/" || publicPrefixes.some((prefix) => pathname.startsWith(prefix));
+
+  if (!isPublic && !data?.claims) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    url.search = "";
+    return NextResponse.redirect(url);
+  }
 
   return supabaseResponse;
 }
