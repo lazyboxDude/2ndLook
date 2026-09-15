@@ -9,11 +9,11 @@ const columns = [
     ],
   },
   {
-    title: "Kategorien",
+    title: "Journal",
     links: [
-      { href: "/feed?category=streetwear", label: "Streetwear" },
-      { href: "/feed?category=duefte", label: "Düfte" },
-      { href: "/watchlist", label: "Watchlist" },
+      { href: "/blog?category=streetwear", label: "Streetwear-News" },
+      { href: "/blog?category=duefte", label: "Düfte-News" },
+      { href: "/blog", label: "Alle Artikel" },
     ],
   },
   {
