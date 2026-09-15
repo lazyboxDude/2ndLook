@@ -11,6 +11,7 @@
 	"vars": {
 		// Publishable/anon-key values — safe to keep in plain vars, not secrets.
 		"NEXT_PUBLIC_SUPABASE_URL": "https://tgbrnlqzxbkdbtwttytr.supabase.co",
-		"NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY": "sb_publishable_tvHuwf4a3-3Qtpt8fRkhYA_ojfeqoym"
+		"NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY": "sb_publishable_tvHuwf4a3-3Qtpt8fRkhYA_ojfeqoym",
+		"NEXT_PUBLIC_TINA_CLIENT_ID": "40ea0a21-6da5-45d9-8851-76ed03a1ff31"
 	}
 }
