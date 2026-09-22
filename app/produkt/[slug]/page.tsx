@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProductBySlug, products, formatChf } from "@/lib/products";
+import { getProductBySlug, getProducts, formatChf } from "@/lib/products";
 import StatusTag from "@/components/StatusTag";
 import DdpBadge from "@/components/DdpBadge";
 import PriceCard from "@/components/PriceCard";
@@ -10,9 +10,10 @@ import WatchlistButton from "@/components/WatchlistButton";
 
 export default async function ProductPage({ params }: PageProps<"/produkt/[slug]">) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) notFound();
 
+  const products = await getProducts();
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 4);
   const fxEstimate = (product.price * 1.0526).toFixed(2);
 
@@ -132,6 +133,7 @@ function Row({
   );
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const products = await getProducts();
   return products.map((p) => ({ slug: p.slug }));
 }

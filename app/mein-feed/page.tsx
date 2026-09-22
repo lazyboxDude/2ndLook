@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { products } from "@/lib/products";
+import { getProducts } from "@/lib/products";
 import PriceCard from "@/components/PriceCard";
 import FollowButton from "@/components/FollowButton";
 
@@ -28,6 +28,7 @@ export default async function MeinFeedPage() {
   const discoverBrands = (brands ?? []).filter((b) => !followedIds.has(b.id));
 
   const followedSlugs = new Set(followedBrands.map((b) => b.slug));
+  const products = await getProducts();
   const feedProducts = products.filter((p) => p.brandSlug && followedSlugs.has(p.brandSlug));
 
   const displayName =

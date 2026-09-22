@@ -1,4 +1,4 @@
-import { products, formatChf } from "@/lib/products";
+import { getProducts, formatChf } from "@/lib/products";
 import PriceCard from "@/components/PriceCard";
 import DdpBadge from "@/components/DdpBadge";
 import BottomTabBar from "@/components/BottomTabBar";
@@ -16,6 +16,7 @@ const titles: Record<string, string> = {
 export default async function FeedPage({ searchParams }: PageProps<"/feed">) {
   const { category } = await searchParams;
   const cat = typeof category === "string" ? category : undefined;
+  const products = await getProducts();
   const list = cat ? products.filter((p) => p.category === cat) : products;
   const spotlight = list.find((p) => p.status === "gefallen") ?? list[0];
   const rest = list.filter((p) => p.slug !== spotlight?.slug);

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { products } from "@/lib/products";
+import { getProducts } from "@/lib/products";
 import { getBlogPostBySlug } from "@/lib/blog";
 import PriceCard from "@/components/PriceCard";
 
@@ -11,8 +11,9 @@ const journalSlugs = [
   "herbst-ausblick-preise-im-vergleich",
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
   const heroPost = getBlogPostBySlug(heroPostSlug)!;
+  const products = await getProducts();
   const dealProducts = dealSlugs.map((slug) => products.find((p) => p.slug === slug)!);
   const journalPosts = journalSlugs.map((slug) => getBlogPostBySlug(slug)!);
 
