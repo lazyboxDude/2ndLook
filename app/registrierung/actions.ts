@@ -26,7 +26,10 @@ export async function signup(_prevState: SignupState, formData: FormData): Promi
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { full_name: name } },
+    options: {
+      data: { full_name: name },
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/mein-feed`,
+    },
   });
 
   if (error) {
