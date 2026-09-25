@@ -20,7 +20,7 @@ export default function FollowButton({
       disabled={pending}
       onClick={() => startTransition(() => toggleFollow(brandId, !following))}
       aria-pressed={following}
-      className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold disabled:opacity-60 ${
+      className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-[transform,background-color,color] duration-150 ease-out active:scale-95 disabled:opacity-60 ${
         following
           ? "bg-foreground text-bg"
           : "border border-placeholder bg-white text-foreground"

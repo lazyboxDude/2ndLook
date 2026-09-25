@@ -17,9 +17,45 @@
   --font-sans: var(--font-fira-sans);
   --font-mono: var(--font-fira-code);
   --font-serif: var(--font-playfair);
+
+  --radius-card: 0.875rem;
 }
 
 body {
   background: var(--color-bg);
   color: var(--color-foreground);
+}
+
+@keyframes heart-pop {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

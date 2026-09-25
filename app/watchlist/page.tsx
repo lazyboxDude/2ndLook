@@ -13,11 +13,11 @@ export default function WatchlistPage() {
   return (
     <>
       <div className="mx-auto max-w-[720px] px-6 py-10 pb-24 md:py-14">
-        <h1 className="text-2xl font-bold text-foreground md:text-3xl">Watchlist</h1>
+        <h1 className="text-2xl font-bold tracking-[-0.02em] text-foreground md:text-3xl">Watchlist</h1>
         <div className="mt-6 flex flex-col gap-8">
           {items.map((p) => (
             <Link key={p.slug} href={`/produkt/${p.slug}`} className="flex flex-col gap-2">
-              <div className="relative aspect-[4/3] w-full rounded-xl bg-placeholder">
+              <div className="relative aspect-[4/3] w-full rounded-card bg-placeholder">
                 {p.status === "gefallen" && (
                   <span className="absolute left-3 top-3 rounded-full bg-green-pale px-3 py-1 text-xs font-semibold text-green">
                     Preis gefallen

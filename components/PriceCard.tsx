@@ -13,7 +13,7 @@ export default function PriceCard({ product }: { product: Product }) {
 
   return (
     <Link href={`/produkt/${product.slug}`} className="flex flex-col gap-2">
-      <div className="relative aspect-square w-full rounded-lg bg-placeholder shadow-lg shadow-slate-900/10">
+      <div className="relative aspect-square w-full rounded-card bg-placeholder">
         <button
           type="button"
           onClick={(e) => {
@@ -23,17 +23,13 @@ export default function PriceCard({ product }: { product: Product }) {
           }}
           aria-pressed={watched}
           aria-label={watched ? "Von Watchlist entfernen" : "Zur Watchlist hinzufügen"}
-          className={`absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full ${
+          className={`absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full text-sm transition-transform duration-100 active:scale-90 ${
             watched ? "bg-foreground text-bg" : "bg-white/85 text-foreground"
           }`}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill={watched ? "currentColor" : "none"} aria-hidden="true">
-            <path
-              d="M12 21s-7.5-4.6-10-9.3C.5 8 2.2 4.5 5.6 4c2-.3 3.9.6 5 2.2C11.7 4.6 13.6 3.7 15.6 4c3.4.5 5.1 4 3.6 7.7C16.7 16.4 12 21 12 21z"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            />
-          </svg>
+          <span key={watched ? "on" : "off"} aria-hidden="true" className="inline-block animate-[heart-pop_240ms_ease-out]">
+            {watched ? "♥" : "♡"}
+          </span>
         </button>
       </div>
       <StatusTag status={product.status} />

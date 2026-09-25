@@ -11,7 +11,7 @@ export default function PriceAlertWidget({ currentPrice }: { currentPrice: numbe
 
   if (mode === "confirmed") {
     return (
-      <div className="rounded-xl bg-green p-5 text-bg">
+      <div key="confirmed" className="animate-[panel-in_220ms_ease-out] rounded-xl bg-green p-5 text-bg">
         <div className="flex items-center gap-2 font-semibold">
           <span className="h-2 w-2 rounded-full bg-bg" />
           Alert aktiv
@@ -22,7 +22,7 @@ export default function PriceAlertWidget({ currentPrice }: { currentPrice: numbe
         </p>
         <button
           onClick={() => setMode("editing")}
-          className="mt-2 text-sm font-medium underline underline-offset-2"
+          className="mt-2 text-sm font-medium underline underline-offset-2 transition-transform duration-100 active:scale-95"
         >
           Zielpreis ändern
         </button>
@@ -32,7 +32,7 @@ export default function PriceAlertWidget({ currentPrice }: { currentPrice: numbe
 
   if (mode === "editing") {
     return (
-      <div className="rounded-xl bg-surface-hero p-5">
+      <div key="editing" className="animate-[panel-in_220ms_ease-out] rounded-xl bg-surface-hero p-5">
         <div className="flex items-center gap-2 font-semibold text-foreground">
           <span aria-hidden="true">🔔</span>
           Zielpreis ändern
@@ -46,16 +46,16 @@ export default function PriceAlertWidget({ currentPrice }: { currentPrice: numbe
           />
           <button
             onClick={() => setMode("confirmed")}
-            className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-bg"
+            className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-bg transition-transform duration-100 active:scale-95"
           >
             Speichern
           </button>
         </div>
         <div className="mt-3 flex gap-4 text-sm">
-          <button onClick={() => setMode("confirmed")} className="text-muted underline">
+          <button onClick={() => setMode("confirmed")} className="text-muted underline transition-transform duration-100 active:scale-95">
             Abbrechen
           </button>
-          <button onClick={() => setMode("idle")} className="text-accent underline">
+          <button onClick={() => setMode("idle")} className="text-accent underline transition-transform duration-100 active:scale-95">
             Alert löschen
           </button>
         </div>
@@ -64,7 +64,7 @@ export default function PriceAlertWidget({ currentPrice }: { currentPrice: numbe
   }
 
   return (
-    <div className="rounded-xl bg-surface-hero p-5">
+    <div key="idle" className="animate-[panel-in_220ms_ease-out] rounded-xl bg-surface-hero p-5">
       <div className="flex items-center gap-2 font-semibold text-foreground">
         <span aria-hidden="true">🔔</span>
         Preis-Alert einrichten
@@ -79,7 +79,7 @@ export default function PriceAlertWidget({ currentPrice }: { currentPrice: numbe
         />
         <button
           onClick={() => setMode("confirmed")}
-          className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-bg"
+          className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-bg transition-transform duration-100 active:scale-95"
         >
           Alert aktivieren
         </button>

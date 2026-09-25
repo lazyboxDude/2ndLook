@@ -43,7 +43,7 @@ export default function Footer() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-sm text-muted-light hover:text-bg"
+                className="text-sm text-muted-light transition-colors duration-150 ease-out hover:text-bg"
               >
                 {link.label}
               </Link>
@@ -61,7 +61,7 @@ export default function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-xs text-muted-light hover:text-bg"
+                className="text-xs text-muted-light transition-colors duration-150 ease-out hover:text-bg"
               >
                 {link.label}
               </Link>

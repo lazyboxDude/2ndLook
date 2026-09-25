@@ -11,9 +11,12 @@ export default function WatchlistButton({ slug }: { slug: string }) {
       type="button"
       onClick={() => toggle(slug)}
       aria-pressed={watched}
-      className="rounded-full border border-foreground px-5 py-2.5 text-sm font-semibold text-foreground"
+      className="rounded-full border border-foreground px-5 py-2.5 text-sm font-semibold text-foreground transition-transform duration-100 active:scale-95"
     >
-      {watched ? "♥ Auf der Watchlist" : "♡ Zur Watchlist"}
+      <span key={watched ? "on" : "off"} className="inline-block animate-[heart-pop_240ms_ease-out]" aria-hidden="true">
+        {watched ? "♥" : "♡"}
+      </span>{" "}
+      {watched ? "Auf der Watchlist" : "Zur Watchlist"}
     </button>
   );
 }

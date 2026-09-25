@@ -37,19 +37,26 @@ export default function Nav() {
           2ndLook
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={
-                isActive(link.href)
-                  ? "text-sm font-semibold text-foreground"
-                  : "text-sm text-muted hover:text-foreground"
-              }
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) => {
+            const active = isActive(link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative pb-1 text-sm ${
+                  active ? "font-semibold text-foreground" : "text-muted transition-colors duration-150 ease-out hover:text-foreground"
+                }`}
+              >
+                {link.label}
+                <span
+                  aria-hidden="true"
+                  className={`absolute inset-x-0 -bottom-0.5 h-0.5 rounded-full bg-foreground transition-transform duration-200 ease-out ${
+                    active ? "scale-x-100" : "scale-x-0"
+                  }`}
+                />
+              </Link>
+            );
+          })}
         </nav>
         <div className="flex items-center gap-3">
           {userInitial ? (
@@ -57,15 +64,9 @@ export default function Nav() {
               <Link
                 href="/watchlist"
                 aria-label="Watchlist"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground text-sm transition-transform duration-100 active:scale-90"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path
-                    d="M12 21s-7.5-4.6-10-9.3C.5 8 2.2 4.5 5.6 4c2-.3 3.9.6 5 2.2C11.7 4.6 13.6 3.7 15.6 4c3.4.5 5.1 4 3.6 7.7C16.7 16.4 12 21 12 21z"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  />
-                </svg>
+                <span aria-hidden="true">♡</span>
               </Link>
               <div className="hidden items-center gap-2 md:flex">
                 <Link
@@ -76,7 +77,10 @@ export default function Nav() {
                   {userInitial}
                 </Link>
                 <form action="/logout" method="post">
-                  <button type="submit" className="text-sm text-muted hover:text-foreground">
+                  <button
+                    type="submit"
+                    className="text-sm text-muted transition-colors duration-150 ease-out hover:text-foreground active:scale-95"
+                  >
                     Abmelden
                   </button>
                 </form>
@@ -89,7 +93,7 @@ export default function Nav() {
               </Link>
               <Link
                 href="/registrierung"
-                className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-bg"
+                className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-bg transition-transform duration-100 active:scale-95"
               >
                 Registrieren
               </Link>

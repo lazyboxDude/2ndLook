@@ -27,12 +27,12 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
 
       <div className="mt-6 flex flex-col gap-10 md:flex-row md:gap-14">
         <div className="flex flex-col gap-4 md:w-1/2">
-          <div className="aspect-square w-full rounded-xl bg-placeholder" />
+          <div className="aspect-square w-full rounded-lg bg-placeholder" />
           <div className="grid grid-cols-4 gap-3">
             {[0, 1, 2, 3].map((i) => (
               <div
                 key={i}
-                className={`aspect-square rounded-lg ${i === 0 ? "bg-foreground/70" : "bg-placeholder"}`}
+                className={`aspect-square rounded-md ${i === 0 ? "bg-foreground/70" : "bg-placeholder"}`}
               />
             ))}
           </div>
@@ -40,7 +40,7 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
 
         <div className="flex flex-col gap-4 md:w-1/2">
           <StatusTag status={product.status} />
-          <h1 className="text-2xl font-bold text-foreground md:text-3xl">{product.name}</h1>
+          <h1 className="text-2xl font-bold tracking-[-0.02em] text-foreground md:text-3xl">{product.name}</h1>
 
           <div className="flex flex-wrap items-center gap-3">
             {product.wasPrice && (
@@ -72,9 +72,12 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
-            <button className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-bg">
+            <Link
+              href={`/produkt/${product.slug}`}
+              className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-bg transition-transform duration-100 active:scale-95"
+            >
               Zum Händler
-            </button>
+            </Link>
             <WatchlistButton slug={product.slug} />
             <span className="text-xs text-muted">Über Awin, geprüfter Partner</span>
           </div>
@@ -102,7 +105,7 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
       </section>
 
       <section className="mt-14 pb-16">
-        <h2 className="text-xl font-bold text-foreground md:text-2xl">Ähnliche Preise</h2>
+        <h2 className="text-xl font-bold tracking-[-0.02em] text-foreground md:text-2xl">Ähnliche Preise</h2>
         <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
           {related.map((p) => (
             <PriceCard key={p.slug} product={p} />
