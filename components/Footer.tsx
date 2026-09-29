@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CookieSettingsButton } from "@/components/CookieConsent";
 
 const columns = [
   {
@@ -28,6 +29,7 @@ const columns = [
 const legalLinks = [
   { href: "/impressum", label: "Impressum" },
   { href: "/datenschutz", label: "Datenschutz" },
+  { href: "/cookies", label: "Cookies" },
   { href: "/agb", label: "AGB" },
   { href: "/widerruf-affiliate", label: "Widerruf & Affiliate" },
 ];
@@ -66,6 +68,7 @@ export default function Footer() {
                 {link.label}
               </Link>
             ))}
+            <CookieSettingsButton className="text-xs text-muted-light hover:text-bg" />
           </div>
         </div>
       </div>

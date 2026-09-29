@@ -47,6 +47,7 @@ export async function updateSession(request: NextRequest) {
     "/impressum",
     "/datenschutz",
     "/agb",
+    "/cookies",
     "/widerruf-affiliate",
   ];
   const { pathname } = request.nextUrl;

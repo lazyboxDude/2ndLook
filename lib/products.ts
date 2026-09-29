@@ -28,7 +28,7 @@ export const products: Product[] = [
     lastChecked: "Heute, 09:14",
     material: "480 GSM Fleece, Bio-Baumwolle",
     description:
-      "Nur 200 Stück. Premium Fleece, oversized Fit, reflektierender Print. Der Preis wird laufend bei mehreren Händlern verglichen.",
+      "Premium Fleece, oversized Fit, reflektierender Print.",
   },
   {
     slug: "voltage-jacket",

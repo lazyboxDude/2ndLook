@@ -35,11 +35,11 @@ export const blogPosts: BlogPost[] = [
     categoryLabel: "Sneaker",
     title: "Restock-Kalender: Diese Drops lohnen sich",
     excerpt:
-      "Welche limitierten Modelle in den nächsten Wochen erneut verfügbar sein sollen — und wo du am schnellsten bist.",
+      "Welche limitierten Modelle in den nächsten Wochen erneut verfügbar sein sollen — und bei welchen Händlern sie gelistet sind.",
     publishedAt: "10. Sept 2026",
     readMinutes: 3,
     content: [
-      "Welche limitierten Modelle in den nächsten Wochen erneut verfügbar sein sollen — und wo du am schnellsten bist.",
+      "Welche limitierten Modelle in den nächsten Wochen erneut verfügbar sein sollen — und bei welchen Händlern sie gelistet sind.",
       "Wir aktualisieren diesen Kalender laufend, sobald Händler neue Restock-Termine bestätigen.",
     ],
   },

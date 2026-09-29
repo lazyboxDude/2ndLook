@@ -5,6 +5,8 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { WatchlistProvider } from "@/lib/watchlist-context";
 import { AuthProvider } from "@/lib/auth-context";
+import { ConsentProvider } from "@/lib/consent-context";
+import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
 
 const firaSans = Fira_Sans({
@@ -34,6 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="de" className={`${firaSans.variable} ${firaCode.variable} ${playfairDisplay.variable}`}>
       <body className="flex min-h-screen flex-col font-sans text-foreground">
+        <ConsentProvider>
         <AuthProvider>
           <WatchlistProvider>
             <Suspense fallback={null}>
@@ -43,6 +46,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Footer />
           </WatchlistProvider>
         </AuthProvider>
+        <CookieConsent />
+        </ConsentProvider>
       </body>
     </html>
   );

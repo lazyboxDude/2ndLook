@@ -12,7 +12,7 @@ export async function signup(_prevState: SignupState, formData: FormData): Promi
   const acceptedTerms = formData.get("terms") === "on";
 
   if (!acceptedTerms) {
-    return { error: "Bitte akzeptiere die AGB und die Datenschutzerklärung." };
+    return { error: "Bitte akzeptiere die AGB." };
   }
   if (password.length < 8) {
     return { error: "Das Passwort muss mindestens 8 Zeichen haben." };
@@ -26,7 +26,7 @@ export async function signup(_prevState: SignupState, formData: FormData): Promi
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { full_name: name } },
+    options: name.trim() ? { data: { full_name: name.trim() } } : undefined,
   });
 
   if (error) {

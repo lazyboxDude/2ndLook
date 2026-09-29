@@ -32,12 +32,11 @@ export default function RegistrierungPage() {
 
       <form action={formAction} className="flex flex-col gap-5">
         <label className="flex flex-col gap-1.5 text-sm">
-          <span className="font-semibold text-foreground">Name</span>
+          <span className="font-semibold text-foreground">Name (optional)</span>
           <input
             type="text"
             name="name"
-            required
-            placeholder="Vor- und Nachname"
+            placeholder="Optional"
             className="rounded-lg border border-placeholder bg-white px-3 py-2.5 text-foreground"
           />
         </label>
@@ -66,13 +65,14 @@ export default function RegistrierungPage() {
         </label>
 
         <label className="flex items-start gap-2 text-sm text-muted">
-          <input type="checkbox" name="terms" className="mt-0.5" />
+          <input type="checkbox" name="terms" required className="mt-0.5" />
           <span>
-            Ich akzeptiere die <Link href="/agb" className="font-semibold text-primary">AGB</Link>{" "}
-            und die{" "}
+            Ich akzeptiere die <Link href="/agb" className="font-semibold text-primary">AGB</Link>.
+            Die{" "}
             <Link href="/datenschutz" className="font-semibold text-primary">
               Datenschutzerklärung
-            </Link>
+            </Link>{" "}
+            habe ich zur Kenntnis genommen.
           </span>
         </label>
 
