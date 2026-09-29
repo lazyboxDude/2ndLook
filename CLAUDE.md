@@ -32,7 +32,6 @@ Next.js (App Router) + TypeScript + Tailwind CSS v4. Tailwind is configured CSS-
 
 Für jede neue Aufgabe in diesem Repository gilt dieser Ablauf:
 
-1. **Planen** – Zuerst die Aufgabe analysieren und in den Plan-Modus gehen, bevor Änderungen vorgenommen werden.
-2. **Design-Aufgaben zuerst in Penpot umsetzen** – Wenn es sich um eine Design-/UI-Aufgabe handelt, diese zuerst im verbundenen Penpot-Projekt umsetzen, nicht direkt als Code.
-3. **Review einholen, bevor etwas als erledigt gilt** – Das Ergebnis (z. B. per Screenshot/Export) dem Nutzer vorlegen und auf dessen Freigabe warten, bevor die Aufgabe abgeschlossen wird.
-4. **Erst danach als Code umsetzen** – Erst nach Freigabe des Designs die Website als Code implementieren.
+1. **Planen** – Zuerst die Aufgabe analysieren und einen kurzen Plan machen, bevor Änderungen vorgenommen werden.
+2. **Direkt im Code umsetzen** – Auch Design-/UI-Aufgaben werden direkt als Code umgesetzt (kein Penpot-Schritt).
+3. **Review einholen, bevor etwas als erledigt gilt** – Das Ergebnis (z. B. per Screenshot) dem Nutzer vorlegen, bevor die Aufgabe als abgeschlossen gilt.
