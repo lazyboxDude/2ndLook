@@ -5,18 +5,13 @@ export const impressum: LegalPage = {
   title: "Impressum",
   sections: [
     {
-      h2: "Anbieterin / Anbieter",
-      body: ["[Firmenname]", "[Strasse und Hausnummer]", "[PLZ und Ort], Schweiz"],
+      h2: "Anbieter:in",
+      body: ["[Vorname Nachname], Schweiz"],
     },
-    { h2: "Vertreten durch", body: ["[Name der vertretungsberechtigten Person]"] },
     { h2: "Kontakt", body: ["Telefon: [Telefonnummer]", "E-Mail: [E-Mail-Adresse]"] },
     {
-      h2: "Handelsregister und UID",
-      body: ["Handelsregistereintrag: [Handelsregisteramt / Kanton]", "UID: [CHE-xxx.xxx.xxx]", "MWST-Nr.: [CHE-xxx.xxx.xxx MWST, falls mehrwertsteuerpflichtig]"],
-    },
-    {
       h2: "Inhaltlich verantwortlich",
-      body: ["[Name], [Anschrift wie oben]"],
+      body: ["[Vorname Nachname]"],
     },
     {
       h2: "Streitbeilegung",
@@ -40,7 +35,7 @@ export const datenschutz: LegalPage = {
     {
       h2: "1. Verantwortliche Stelle",
       body: [
-        "Verantwortlich für die Datenbearbeitung auf dieser Website ist [Firmenname], [Anschrift], Schweiz, [E-Mail-Adresse].",
+        "Verantwortlich für die Datenbearbeitung auf dieser Website ist [Vorname Nachname], Schweiz, [E-Mail-Adresse].",
         "Wir bearbeiten Personendaten nach dem schweizerischen Datenschutzgesetz (DSG). Soweit sich unser Angebot auch an Personen in der EU/im EWR richtet, beachten wir zusätzlich die DSGVO.",
       ],
     },
@@ -98,7 +93,7 @@ export const datenschutz: LegalPage = {
         "Du kannst dich ausserdem beim Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB) beschweren; bei Bezug zur EU auch bei deiner lokalen Datenschutzbehörde.",
       ],
     },
-    { h2: "10. Kontakt für Datenschutzanfragen", body: ["[Name/Abteilung], [E-Mail-Adresse]"] },
+    { h2: "10. Kontakt für Datenschutzanfragen", body: ["[E-Mail-Adresse]"] },
   ],
 };
 
@@ -141,7 +136,7 @@ export const agb: LegalPage = {
     {
       h2: "1. Geltungsbereich",
       body: [
-        "Diese AGB gelten für die Nutzung der Plattform 2ndLook durch registrierte und nicht registrierte Nutzerinnen und Nutzer. Anbieterin ist [Firmenname], [Anschrift], Schweiz.",
+        "Diese AGB gelten für die Nutzung der Plattform 2ndLook durch registrierte und nicht registrierte Nutzerinnen und Nutzer. Anbieter:in ist [Vorname Nachname], Schweiz.",
       ],
     },
     {

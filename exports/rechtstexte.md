@@ -1,16 +1,8 @@
 # Impressum
 
-## Anbieterin / Anbieter
+## Anbieter:in
 
-[Firmenname]
-
-[Strasse und Hausnummer]
-
-[PLZ und Ort], Schweiz
-
-## Vertreten durch
-
-[Name der vertretungsberechtigten Person]
+[Vorname Nachname], Schweiz
 
 ## Kontakt
 
@@ -18,17 +10,9 @@ Telefon: [Telefonnummer]
 
 E-Mail: [E-Mail-Adresse]
 
-## Handelsregister und UID
-
-Handelsregistereintrag: [Handelsregisteramt / Kanton]
-
-UID: [CHE-xxx.xxx.xxx]
-
-MWST-Nr.: [CHE-xxx.xxx.xxx MWST, falls mehrwertsteuerpflichtig]
-
 ## Inhaltlich verantwortlich
 
-[Name], [Anschrift wie oben]
+[Vorname Nachname]
 
 ## Streitbeilegung
 
@@ -46,7 +30,7 @@ Für die Inhalte externer Händlerseiten, auf die über Affiliate-Links verwiese
 
 ## 1. Verantwortliche Stelle
 
-Verantwortlich für die Datenbearbeitung auf dieser Website ist [Firmenname], [Anschrift], Schweiz, [E-Mail-Adresse].
+Verantwortlich für die Datenbearbeitung auf dieser Website ist [Vorname Nachname], Schweiz, [E-Mail-Adresse].
 
 Wir bearbeiten Personendaten nach dem schweizerischen Datenschutzgesetz (DSG). Soweit sich unser Angebot auch an Personen in der EU/im EWR richtet, beachten wir zusätzlich die DSGVO.
 
@@ -96,7 +80,7 @@ Du kannst dich ausserdem beim Eidgenössischen Datenschutz- und Öffentlichkeits
 
 ## 10. Kontakt für Datenschutzanfragen
 
-[Name/Abteilung], [E-Mail-Adresse]
+[E-Mail-Adresse]
 
 ---
 
@@ -130,7 +114,7 @@ Weitere Informationen zur Bearbeitung von Personendaten findest du in der Datens
 
 ## 1. Geltungsbereich
 
-Diese AGB gelten für die Nutzung der Plattform 2ndLook durch registrierte und nicht registrierte Nutzerinnen und Nutzer. Anbieterin ist [Firmenname], [Anschrift], Schweiz.
+Diese AGB gelten für die Nutzung der Plattform 2ndLook durch registrierte und nicht registrierte Nutzerinnen und Nutzer. Anbieter:in ist [Vorname Nachname], Schweiz.
 
 ## 2. Leistungsbeschreibung
 
