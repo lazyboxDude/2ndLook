@@ -12,7 +12,7 @@ export default function CookieConsent() {
 
   return (
     <div
-      role="dialog"
+      role="region"
       aria-label="Cookie-Einstellungen"
       className="fixed inset-x-0 bottom-0 z-50 border-t border-placeholder bg-bg px-6 py-5 shadow-[0_-4px_24px_rgba(17,24,39,0.12)] md:px-16"
     >

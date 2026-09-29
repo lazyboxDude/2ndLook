@@ -23,11 +23,11 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "12. Sept 2026",
     readMinutes: 4,
     content: [
-      "Ein kurzer Überblick über die Marken, die 2026 den Ton angeben — von etablierten Labels bis zu aufstrebenden Studios, die wir laufend auf Preise und Verfügbarkeit bei autorisierten Händlern prüfen.",
+      "Ein kurzer Überblick über die Marken, die 2026 den Ton angeben — von etablierten Labels bis zu aufstrebenden Studios.",
       "Struktur: Einleitung, 3-5 Marken-Abschnitte mit Bild, kurzer Fazit-Absatz.",
       "Abschliessender Absatz mit Fazit und Link zu verwandten Artikeln oder zum Feed.",
     ],
-    pullQuote: "Qualität und Verfügbarkeit bei autorisierten Händlern schlagen jeden Graumarkt-Preis.",
+    pullQuote: "Qualität und Verfügbarkeit zählen mehr als der niedrigste Preis.",
   },
   {
     slug: "restock-kalender-diese-drops-lohnen-sich",
@@ -35,12 +35,12 @@ export const blogPosts: BlogPost[] = [
     categoryLabel: "Sneaker",
     title: "Restock-Kalender: Diese Drops lohnen sich",
     excerpt:
-      "Welche limitierten Modelle in den nächsten Wochen erneut verfügbar sein sollen — und bei welchen Händlern sie gelistet sind.",
+      "Ein Blick auf limitierte Modelle, für die ein erneuter Verkauf angekündigt sein könnte.",
     publishedAt: "10. Sept 2026",
     readMinutes: 3,
     content: [
-      "Welche limitierten Modelle in den nächsten Wochen erneut verfügbar sein sollen — und bei welchen Händlern sie gelistet sind.",
-      "Wir aktualisieren diesen Kalender laufend, sobald Händler neue Restock-Termine bestätigen.",
+      "Ein Blick auf limitierte Modelle, für die ein erneuter Verkauf angekündigt sein könnte.",
+      "Angekündigte Termine können sich ändern; massgeblich sind die Angaben der Händler.",
     ],
   },
   {
@@ -49,12 +49,12 @@ export const blogPosts: BlogPost[] = [
     categoryLabel: "Düfte",
     title: "Nischendüfte, die 2026 jeder kennt",
     excerpt:
-      "Fünf Duftlinien abseits des Mainstreams, die gerade an Fahrt aufnehmen — samt Preisrange bei autorisierten Händlern.",
+      "Fünf Duftlinien abseits des Mainstreams.",
     publishedAt: "8. Sept 2026",
     readMinutes: 5,
     content: [
-      "Fünf Duftlinien abseits des Mainstreams, die gerade an Fahrt aufnehmen — samt Preisrange bei autorisierten Händlern.",
-      "Wir zeigen dir, worauf du bei Dekants und Flakon-Grössen achten solltest, bevor du kaufst.",
+      "Fünf Duftlinien abseits des Mainstreams.",
+      "Worauf du bei Dekants und Flakon-Grössen achten kannst, bevor du kaufst.",
     ],
   },
   {
@@ -63,12 +63,12 @@ export const blogPosts: BlogPost[] = [
     categoryLabel: "Ratgeber",
     title: "So liest du einen Preisverlauf richtig",
     excerpt:
-      "Was ein Preis-Chart wirklich verrät — und woran du eine echte Reduktion von einer Fake-Rabattaktion unterscheidest.",
+      "Was ein Preis-Chart verrät — und worauf du bei Rabattaktionen achten kannst.",
     publishedAt: "5. Sept 2026",
     readMinutes: 4,
     content: [
-      "Was ein Preis-Chart wirklich verrät — und woran du eine echte Reduktion von einer Fake-Rabattaktion unterscheidest.",
-      "Ein Preisverlauf über mehrere Wochen zeigt dir, ob ein 'Angebot' tatsächlich ein Tiefstand ist oder nur ein kurzfristig angehobener Vergleichspreis.",
+      "Was ein Preis-Chart verrät — und worauf du bei Rabattaktionen achten kannst.",
+      "Ein Preisverlauf über mehrere Wochen kann zeigen, ob ein 'Angebot' tatsächlich ein Tiefstand ist oder nur ein kurzfristig angehobener Vergleichspreis.",
     ],
   },
   {
@@ -77,12 +77,12 @@ export const blogPosts: BlogPost[] = [
     categoryLabel: "Ratgeber",
     title: "DDP erklärt: Zoll & MwSt. auf einen Blick",
     excerpt:
-      "Warum bei 2ndLook der angezeigte Preis inklusive Zoll und Mehrwertsteuer der Preis ist, den du wirklich zahlst.",
+      "Was Preise „inklusive Zoll und Mehrwertsteuer“ bedeuten.",
     publishedAt: "2. Sept 2026",
     readMinutes: 3,
     content: [
-      "Warum bei 2ndLook der angezeigte Preis inklusive Zoll und Mehrwertsteuer der Preis ist, den du wirklich zahlst.",
-      "DDP steht für 'Delivered Duty Paid' — keine Überraschungen bei der Zustellung.",
+      "Was Preise „inklusive Zoll und Mehrwertsteuer“ bedeuten.",
+      "DDP steht für 'Delivered Duty Paid': Der Händler übernimmt laut eigener Angabe Zoll und Mehrwertsteuer. Massgeblich sind die Angaben auf der Händlerseite.",
     ],
   },
   {
@@ -91,10 +91,10 @@ export const blogPosts: BlogPost[] = [
     categoryLabel: "Markt",
     title: "Herbst-Ausblick: Preise im Vergleich",
     excerpt:
-      "Ein Rückblick auf die Preisentwicklung der letzten Saison — und was das für den kommenden Herbst bedeutet.",
+      "Ein Ausblick auf die Preisentwicklung im Herbst.",
     publishedAt: "29. Aug 2026",
     content: [
-      "Ein Rückblick auf die Preisentwicklung der letzten Saison — und was das für den kommenden Herbst bedeutet.",
+      "Ein Ausblick auf die Preisentwicklung im Herbst.",
     ],
   },
 ];

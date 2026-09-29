@@ -17,14 +17,14 @@ export default async function BlogPage({ searchParams }: PageProps<"/blog">) {
         {cat ? titles[cat] ?? "Journal" : "Journal"}
       </h1>
       <p className="mt-3 max-w-[700px] text-sm text-muted md:text-base">
-        Streetwear-Trends, Sneaker-News und Duft-Empfehlungen — kuratiert, bevor du kaufst.
+        Artikel zu Streetwear und Düften.
       </p>
 
       <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 md:grid-cols-3">
         {posts.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`} className="flex flex-col gap-3">
-            <div className="aspect-[8/5] w-full rounded-xl bg-placeholder" />
-            <span className="text-xs font-bold uppercase text-muted-light">
+            <div aria-hidden="true" className="aspect-[8/5] w-full rounded-xl bg-placeholder" />
+            <span className="text-xs font-bold uppercase text-muted">
               {post.categoryLabel} · {post.publishedAt}
               {post.readMinutes ? ` · ${post.readMinutes} Min` : ""}
             </span>

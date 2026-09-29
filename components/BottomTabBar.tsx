@@ -32,11 +32,12 @@ function BottomTabBarInner() {
   };
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 flex border-t border-placeholder bg-bg md:hidden">
+    <nav aria-label="Kategorien" className="fixed inset-x-0 bottom-0 flex border-t border-placeholder bg-bg md:hidden">
       {tabs.map((tab) => (
         <Link
           key={tab.href}
           href={tab.href}
+          aria-current={isActive(tab.href) ? "page" : undefined}
           className={`flex flex-1 flex-col items-center gap-1 py-3 text-xs ${
             isActive(tab.href) ? "font-semibold text-foreground" : "text-muted"
           }`}

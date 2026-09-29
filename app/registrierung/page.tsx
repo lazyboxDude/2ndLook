@@ -26,7 +26,7 @@ export default function RegistrierungPage() {
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold text-foreground">Konto erstellen</h1>
         <p className="text-sm text-muted">
-          Erstelle ein Konto, um deinen Feed zu personalisieren und Marken zu folgen.
+          Erstelle ein Konto, um deinen Feed zu personalisieren und Marken zu folgen. 2ndLook richtet sich an Personen ab 16 Jahren.
         </p>
       </div>
 
@@ -37,7 +37,7 @@ export default function RegistrierungPage() {
             type="text"
             name="name"
             placeholder="Optional"
-            className="rounded-lg border border-placeholder bg-white px-3 py-2.5 text-foreground"
+            className="rounded-lg border border-border-strong bg-white px-3 py-2.5 text-foreground"
           />
         </label>
 
@@ -48,7 +48,7 @@ export default function RegistrierungPage() {
             name="email"
             required
             placeholder="name@beispiel.ch"
-            className="rounded-lg border border-placeholder bg-white px-3 py-2.5 text-foreground"
+            className="rounded-lg border border-border-strong bg-white px-3 py-2.5 text-foreground"
           />
         </label>
 
@@ -60,8 +60,13 @@ export default function RegistrierungPage() {
             required
             minLength={8}
             placeholder="Mind. 8 Zeichen"
-            className="rounded-lg border border-placeholder bg-white px-3 py-2.5 text-foreground"
+            className="rounded-lg border border-border-strong bg-white px-3 py-2.5 text-foreground"
           />
+        </label>
+
+        <label className="flex items-start gap-2 text-sm text-muted">
+          <input type="checkbox" name="age" required className="mt-0.5" />
+          <span>Ich bin mindestens 16 Jahre alt.</span>
         </label>
 
         <label className="flex items-start gap-2 text-sm text-muted">
@@ -76,7 +81,7 @@ export default function RegistrierungPage() {
           </span>
         </label>
 
-        {state?.error && <p className="text-sm text-destructive">{state.error}</p>}
+        {state?.error && <p role="alert" className="text-sm text-destructive">{state.error}</p>}
 
         <button
           type="submit"

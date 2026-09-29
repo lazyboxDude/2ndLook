@@ -11,6 +11,9 @@ export async function signup(_prevState: SignupState, formData: FormData): Promi
   const password = String(formData.get("password") ?? "");
   const acceptedTerms = formData.get("terms") === "on";
 
+  if (formData.get("age") !== "on") {
+    return { error: "Die Registrierung ist erst ab 16 Jahren möglich." };
+  }
   if (!acceptedTerms) {
     return { error: "Bitte akzeptiere die AGB." };
   }

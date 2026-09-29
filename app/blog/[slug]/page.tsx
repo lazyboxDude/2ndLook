@@ -9,17 +9,17 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
 
   return (
     <div className="mx-auto max-w-[840px] px-6 py-10 md:px-16 md:py-14">
-      <nav className="text-sm text-muted">
+      <nav aria-label="Brotkrumen" className="text-sm text-muted">
         <Link href="/blog">Journal</Link> / <span className="font-medium text-foreground">{post.title}</span>
       </nav>
 
-      <span className="mt-6 block text-xs font-bold uppercase text-muted-light">
+      <span className="mt-6 block text-xs font-bold uppercase text-muted">
         {post.categoryLabel} · {post.publishedAt}
         {post.readMinutes ? ` · ${post.readMinutes} Min Lesezeit` : ""}
       </span>
       <h1 className="mt-2 text-3xl font-bold text-foreground md:text-4xl">{post.title}</h1>
 
-      <div className="mt-8 aspect-[19/9] w-full rounded-xl bg-placeholder" />
+      <div aria-hidden="true" className="mt-8 aspect-[19/9] w-full rounded-xl bg-placeholder" />
 
       <div className="mt-8 flex flex-col gap-5">
         {post.content.map((paragraph, i) => (

@@ -7,12 +7,13 @@
   --color-foreground: #111827;
   --color-primary: #111827;
   --color-muted: #475569;
-  --color-muted-light: #b9c4e0;
-  --color-green: #16a34a;
+  --color-muted-light: #b9c4e0; /* nur auf dunklem Hintergrund (Footer) */
+  --color-border-strong: #64748b;
+  --color-green: #166534;
   --color-green-bright: #4ade80;
   --color-green-pale: #dcebd7;
-  --color-accent: #d97706;
-  --color-destructive: #dc2626;
+  --color-accent: #b45309;
+  --color-destructive: #b91c1c;
 
   --font-sans: var(--font-fira-sans);
   --font-mono: var(--font-fira-code);
@@ -22,4 +23,31 @@
 body {
   background: var(--color-bg);
   color: var(--color-foreground);
+}
+
+:focus-visible {
+  outline: 2px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  background: var(--color-foreground);
+  color: var(--color-bg);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

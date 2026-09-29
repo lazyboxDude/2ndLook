@@ -1,3 +1,5 @@
+import { BUSINESS, MIN_AGE } from "@/lib/business";
+
 export type LegalSection = { h2: string; body: string[] };
 export type LegalPage = { title: string; sections: LegalSection[] };
 
@@ -6,12 +8,17 @@ export const impressum: LegalPage = {
   sections: [
     {
       h2: "Anbieter:in",
-      body: ["[Vorname Nachname], Schweiz"],
+      body: [
+        `${BUSINESS.name} (${BUSINESS.legalForm})`,
+        BUSINESS.address,
+        `UID: ${BUSINESS.uid}`,
+        `MWST-Nr.: ${BUSINESS.vat}`,
+      ],
     },
-    { h2: "Kontakt", body: ["Telefon: [Telefonnummer]", "E-Mail: [E-Mail-Adresse]"] },
+    { h2: "Kontakt", body: [`E-Mail: ${BUSINESS.email}`, `Telefon: ${BUSINESS.phone}`] },
     {
       h2: "Inhaltlich verantwortlich",
-      body: ["[Vorname Nachname]"],
+      body: [BUSINESS.name],
     },
     {
       h2: "Streitbeilegung",
@@ -35,7 +42,7 @@ export const datenschutz: LegalPage = {
     {
       h2: "1. Verantwortliche Stelle",
       body: [
-        "Verantwortlich für die Datenbearbeitung auf dieser Website ist [Vorname Nachname], Schweiz, [E-Mail-Adresse].",
+        `Verantwortlich für die Datenbearbeitung auf dieser Website ist ${BUSINESS.name}, ${BUSINESS.address}, ${BUSINESS.email}.`,
         "Wir bearbeiten Personendaten nach dem schweizerischen Datenschutzgesetz (DSG). Soweit sich unser Angebot auch an Personen in der EU/im EWR richtet, beachten wir zusätzlich die DSGVO.",
       ],
     },
@@ -43,7 +50,13 @@ export const datenschutz: LegalPage = {
       h2: "2. Hosting und Server-Logfiles",
       body: [
         "Die Website wird über Cloudflare, Inc. (USA) ausgeliefert. Beim Aufruf werden automatisch technische Daten erfasst (u. a. IP-Adresse, Datum/Uhrzeit, aufgerufene Seite, Browsertyp), die für Betrieb, Sicherheit und Stabilität erforderlich sind.",
-        "Rechtsgrundlage ist unser berechtigtes Interesse an einem sicheren und stabilen Betrieb (Art. 6 Abs. 1 lit. f DSGVO, soweit anwendbar). Logdaten werden nach kurzer Zeit gelöscht, spätestens nach [Frist, z. B. 30 Tagen].",
+        "Rechtsgrundlage ist unser berechtigtes Interesse an einem sicheren und stabilen Betrieb (Art. 6 Abs. 1 lit. f DSGVO, soweit anwendbar). Die Aufbewahrungsdauer der Logdaten richtet sich nach den Einstellungen des Hosting-Anbieters [Frist prüfen und eintragen].",
+      ],
+    },
+    {
+      h2: "2a. Schriftarten",
+      body: [
+        "Wir verwenden die Schriftarten Fira Sans, Fira Code und Playfair Display (SIL Open Font License 1.1). Sie werden beim Build lokal ausgeliefert; beim Seitenaufruf wird keine Verbindung zu Google-Servern aufgebaut.",
       ],
     },
     {
@@ -57,14 +70,14 @@ export const datenschutz: LegalPage = {
       h2: "4. Nutzerkonto",
       body: [
         "Für ein Nutzerkonto speichern wir deine E-Mail-Adresse und ein Passwort (verschlüsselt) sowie, falls du ihn angibst, deinen Namen. Die Daten werden bei Supabase (Supabase Inc.) gespeichert und dort bearbeitet.",
-        "Zweck ist die Bereitstellung des von dir gewünschten Dienstes. Du kannst dein Konto jederzeit löschen; die Daten werden dann gelöscht, soweit keine gesetzlichen Aufbewahrungspflichten entgegenstehen.",
+        "Zweck ist die Bereitstellung des von dir gewünschten Dienstes. Du kannst dein Konto jederzeit über /datenloeschung löschen lassen; die Daten werden dann gelöscht, soweit keine gesetzlichen Aufbewahrungspflichten entgegenstehen.",
       ],
     },
     {
       h2: "5. Watchlist und Preis-Alerts",
       body: [
         "Ohne Konto wird deine Watchlist nur lokal in deinem Browser gespeichert (Eintrag „2ndlook.watchlist“); es findet keine Übermittlung an uns statt.",
-        "Mit Konto speichern wir die beobachteten Artikel und Zielpreise in Supabase, um dich benachrichtigen zu können. Benachrichtigungen per E-Mail versenden wir nur, wenn du diese aktiv eingerichtet und die Anmeldung bestätigt hast (Double-Opt-in). Du kannst Alerts jederzeit selbst löschen oder abbestellen.",
+        "Mit Konto speichern wir die beobachteten Artikel in Supabase. Preis-Alerts per E-Mail gibt es derzeit nicht. Sollten wir sie einführen, versenden wir sie nur nach bestätigter Anmeldung (Double-Opt-in) und mit Abmelde-Link in jeder E-Mail.",
       ],
     },
     {
@@ -75,25 +88,31 @@ export const datenschutz: LegalPage = {
       ],
     },
     {
-      h2: "7. Bekanntgabe ins Ausland",
+      h2: "7. Kinder und Jugendliche",
+      body: [
+        `2ndLook richtet sich nicht an Kinder. Ein Konto kann erst ab ${MIN_AGE} Jahren erstellt werden; dies bestätigst du bei der Registrierung. Wir erheben wissentlich keine Personendaten von Personen unter ${MIN_AGE} Jahren. Wenn du glaubst, dass ein Kind ein Konto erstellt hat, schreib uns – wir löschen die Daten.`,
+      ],
+    },
+    {
+      h2: "8. Bekanntgabe ins Ausland",
       body: [
         "Wir nutzen Dienstleister (Supabase, Cloudflare, Awin), die Daten auch ausserhalb der Schweiz bearbeiten können, u. a. in der EU und in den USA. Wo kein angemessener Datenschutz besteht, stellen wir ihn durch geeignete Garantien sicher (z. B. Standardvertragsklauseln oder Zertifizierung unter dem Swiss-US Data Privacy Framework).",
       ],
     },
     {
-      h2: "8. Aufbewahrung",
+      h2: "9. Aufbewahrung",
       body: [
-        "Wir speichern Personendaten nur so lange, wie es für die genannten Zwecke erforderlich ist oder gesetzlich verlangt wird. Kontodaten und Alerts löschen wir nach Kontolöschung.",
+        "Wir speichern Personendaten nur so lange, wie es für die genannten Zwecke erforderlich ist oder gesetzlich verlangt wird. Kontodaten löschen wir nach Kontolöschung.",
       ],
     },
     {
-      h2: "9. Deine Rechte",
+      h2: "10. Deine Rechte",
       body: [
-        "Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Bearbeitung, Datenherausgabe bzw. -übertragung sowie Widerspruch. Erteilte Einwilligungen kannst du jederzeit mit Wirkung für die Zukunft widerrufen. Wende dich hierzu an [E-Mail-Adresse].",
+        `Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Bearbeitung, Datenherausgabe bzw. -übertragung sowie Widerspruch. Erteilte Einwilligungen kannst du jederzeit mit Wirkung für die Zukunft widerrufen. Einen Löschantrag kannst du unter /datenloeschung stellen; sonst wende dich an ${BUSINESS.email}.`,
         "Du kannst dich ausserdem beim Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB) beschweren; bei Bezug zur EU auch bei deiner lokalen Datenschutzbehörde.",
       ],
     },
-    { h2: "10. Kontakt für Datenschutzanfragen", body: ["[E-Mail-Adresse]"] },
+    { h2: "11. Kontakt für Datenschutzanfragen", body: [BUSINESS.email] },
   ],
 };
 
@@ -136,27 +155,27 @@ export const agb: LegalPage = {
     {
       h2: "1. Geltungsbereich",
       body: [
-        "Diese AGB gelten für die Nutzung der Plattform 2ndLook durch registrierte und nicht registrierte Nutzerinnen und Nutzer. Anbieter:in ist [Vorname Nachname], Schweiz.",
+        `Diese AGB gelten für die Nutzung der Plattform 2ndLook durch registrierte und nicht registrierte Nutzerinnen und Nutzer. Anbieter:in ist ${BUSINESS.name}, ${BUSINESS.address}.`,
       ],
     },
     {
       h2: "2. Leistungsbeschreibung",
       body: [
-        "2ndLook betreibt einen kostenlosen Preis-Tracking-Dienst für Streetwear, Sneaker und Düfte.",
+        "2ndLook betreibt eine kostenlose Preisübersicht für Streetwear und Düfte.",
         "Wir verkaufen keine eigenen Produkte, sondern verweisen über Affiliate-Links auf Angebote Dritter. Der Kaufvertrag kommt ausschliesslich zwischen dir und dem jeweiligen Händler zustande.",
       ],
     },
     {
       h2: "3. Nutzerkonto",
       body: [
-        "Die Watchlist kann ohne Konto lokal im Browser genutzt werden. Für Konto-Funktionen und Preis-Alerts per E-Mail ist die Angabe einer gültigen E-Mail-Adresse erforderlich. Du bist für die Richtigkeit deiner Angaben und die Geheimhaltung deiner Zugangsdaten verantwortlich.",
+        "Die Watchlist kann ohne Konto lokal im Browser genutzt werden. Für Konto-Funktionen ist die Angabe einer gültigen E-Mail-Adresse erforderlich. Du bist für die Richtigkeit deiner Angaben und die Geheimhaltung deiner Zugangsdaten verantwortlich.",
       ],
     },
     {
       h2: "4. Preisangaben und Benachrichtigungen",
       body: [
         "Alle Preise werden in CHF angezeigt und beinhalten laut Angabe des Händlers Zoll und Mehrwertsteuer (DDP), soweit gekennzeichnet. Eine EUR-Angabe dient nur der Orientierung.",
-        "Preise werden regelmässig, aber nicht in Echtzeit aktualisiert; massgeblich ist stets der Preis auf der Händlerseite zum Zeitpunkt des Kaufs. Benachrichtigungen können verspätet oder gar nicht erfolgen; wir übernehmen keine Gewähr für Richtigkeit, Vollständigkeit, Verfügbarkeit oder Aktualität.",
+        "Angezeigte Preise können veraltet oder fehlerhaft sein; massgeblich ist stets der Preis auf der Händlerseite zum Zeitpunkt des Kaufs. Wir übernehmen keine Gewähr für Richtigkeit, Vollständigkeit, Verfügbarkeit oder Aktualität.",
       ],
     },
     {
@@ -181,7 +200,7 @@ export const agb: LegalPage = {
     },
     {
       h2: "8. Kündigung",
-      body: ["Du kannst dein Nutzerkonto und alle gespeicherten Alerts jederzeit ohne Angabe von Gründen löschen. Wir können den Dienst oder einzelne Funktionen jederzeit ändern oder einstellen."],
+      body: ["Du kannst dein Nutzerkonto und alle gespeicherten Daten jederzeit ohne Angabe von Gründen löschen. Wir können den Dienst oder einzelne Funktionen jederzeit ändern oder einstellen."],
     },
     {
       h2: "9. Änderungen der AGB",
@@ -206,7 +225,6 @@ export const widerruf: LegalPage = {
       h2: "Affiliate-Hinweis (Werbung)",
       body: [
         "2ndLook finanziert sich über Affiliate-Partnerschaften. Wenn du über einen mit „Anzeige“ oder „Affiliate-Link“ gekennzeichneten Link einkaufst, erhalten wir ggf. eine Provision vom Händler – für dich entstehen dadurch keine Mehrkosten.",
-        "Die Auswahl der angezeigten Preise und Produkte erfolgt unabhängig von der Höhe einer möglichen Provision.",
       ],
     },
     {
@@ -219,7 +237,7 @@ export const widerruf: LegalPage = {
     {
       h2: "Löschung des 2ndLook-Kontos",
       body: [
-        "Die Nutzung von 2ndLook ist kostenlos. Du kannst dein Konto und alle eingerichteten Preis-Alerts jederzeit und ohne Frist löschen; melde dich dazu unter [E-Mail-Adresse].",
+        "Die Nutzung von 2ndLook ist kostenlos. Du kannst dein Konto jederzeit löschen; stelle dazu einen Löschantrag unter /datenloeschung.",
       ],
     },
   ],

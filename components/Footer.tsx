@@ -3,25 +3,11 @@ import { CookieSettingsButton } from "@/components/CookieConsent";
 
 const columns = [
   {
-    title: "Unternehmen",
-    links: [
-      { href: "/", label: "Über uns" },
-      { href: "/", label: "Kontakt" },
-    ],
-  },
-  {
     title: "Journal",
     links: [
       { href: "/blog?category=streetwear", label: "Streetwear-News" },
       { href: "/blog?category=duefte", label: "Düfte-News" },
       { href: "/blog", label: "Alle Artikel" },
-    ],
-  },
-  {
-    title: "Community",
-    links: [
-      { href: "/", label: "Newsletter" },
-      { href: "/", label: "Instagram" },
     ],
   },
 ];
@@ -32,6 +18,7 @@ const legalLinks = [
   { href: "/cookies", label: "Cookies" },
   { href: "/agb", label: "AGB" },
   { href: "/widerruf-affiliate", label: "Widerruf & Affiliate" },
+  { href: "/datenloeschung", label: "Datenlöschung" },
 ];
 
 export default function Footer() {
@@ -58,7 +45,7 @@ export default function Footer() {
           <span className="text-xs text-muted-light">
             © 2026 2ndLook. Alle Rechte vorbehalten.
           </span>
-          <div className="flex flex-wrap gap-4">
+          <nav aria-label="Rechtliches" className="flex flex-wrap gap-4">
             {legalLinks.map((link) => (
               <Link
                 key={link.href}
@@ -69,7 +56,7 @@ export default function Footer() {
               </Link>
             ))}
             <CookieSettingsButton className="text-xs text-muted-light hover:text-bg" />
-          </div>
+          </nav>
         </div>
       </div>
     </footer>

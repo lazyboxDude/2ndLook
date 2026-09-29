@@ -29,20 +29,23 @@ const playfairDisplay = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "2ndLook",
-  description: "Preise für Streetwear, Sneaker und Nischendüfte im Blick.",
+  description: "Preise für Streetwear und Nischendüfte im Überblick.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="de" className={`${firaSans.variable} ${firaCode.variable} ${playfairDisplay.variable}`}>
       <body className="flex min-h-screen flex-col font-sans text-foreground">
+        <a href="#main-content" className="skip-link">
+          Zum Inhalt springen
+        </a>
         <ConsentProvider>
         <AuthProvider>
           <WatchlistProvider>
             <Suspense fallback={null}>
               <Nav />
             </Suspense>
-            <main className="flex-1">{children}</main>
+            <main id="main-content" tabIndex={-1} className="flex-1 outline-none">{children}</main>
             <Footer />
           </WatchlistProvider>
         </AuthProvider>

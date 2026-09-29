@@ -21,10 +21,11 @@ export default function HomePage() {
       <section className="flex flex-col md:flex-row">
         <Link
           href={`/blog/${heroPost.slug}`}
+          aria-label={`Artikel lesen: ${heroPost.title}`}
           className="relative block min-h-[360px] w-full overflow-hidden bg-slate-800 md:min-h-[640px] md:w-[65%]"
         >
-          <span className="absolute left-7 top-7 h-5 w-5 border-l-2 border-t-2 border-white/80" />
-          <span className="absolute bottom-7 right-7 h-5 w-5 border-b-2 border-r-2 border-white/80" />
+          <span aria-hidden="true" className="absolute left-7 top-7 h-5 w-5 border-l-2 border-t-2 border-white/80" />
+          <span aria-hidden="true" className="absolute bottom-7 right-7 h-5 w-5 border-b-2 border-r-2 border-white/80" />
         </Link>
         <div className="flex w-full flex-col justify-center gap-5 bg-white px-8 py-14 md:w-[35%] md:px-16">
           <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
@@ -43,10 +44,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="px-6 py-14 md:px-16 md:py-20">
+      <section aria-labelledby="deals-heading" className="px-6 py-14 md:px-16 md:py-20">
         <div className="mx-auto max-w-[1440px]">
-          <h2 className="font-serif text-2xl font-bold text-foreground md:text-3xl">
-            Diese Woche im Preis reduziert
+          <h2 id="deals-heading" className="font-serif text-2xl font-bold text-foreground md:text-3xl">
+            Ausgewählte Preise
           </h2>
           <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
             {dealProducts.map((p) => (
@@ -56,15 +57,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="px-6 pb-20 md:px-16 md:pb-24">
+      <section aria-labelledby="journal-heading" className="px-6 pb-20 md:px-16 md:pb-24">
         <div className="mx-auto max-w-[1440px]">
-          <h2 className="font-serif text-2xl font-bold text-foreground md:text-3xl">
+          <h2 id="journal-heading" className="font-serif text-2xl font-bold text-foreground md:text-3xl">
             Aus dem Journal
           </h2>
           <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
             {journalPosts.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="flex flex-col gap-3">
-                <div className="aspect-[4/3] w-full rounded bg-slate-800 shadow-lg shadow-slate-900/10" />
+                <div aria-hidden="true" className="aspect-[4/3] w-full rounded bg-slate-800 shadow-lg shadow-slate-900/10" />
                 <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
                   {post.categoryLabel}
                 </span>

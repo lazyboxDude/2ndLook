@@ -16,17 +16,17 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
 
   return (
     <div className="mx-auto max-w-[1440px] px-6 py-8 md:px-16">
-      <nav className="text-sm text-muted">
+      <nav aria-label="Brotkrumen" className="text-sm text-muted">
         <Link href="/feed">Feed</Link> / <Link href={`/feed?category=${product.category}`}>
           {product.category === "streetwear" ? "Streetwear" : "Düfte"}
         </Link>{" "}
-        / <span className="font-medium text-foreground">{product.name}</span>
+        / <span aria-current="page" className="font-medium text-foreground">{product.name}</span>
       </nav>
 
       <div className="mt-6 flex flex-col gap-10 md:flex-row md:gap-14">
         <div className="flex flex-col gap-4 md:w-1/2">
-          <div className="aspect-square w-full rounded-xl bg-placeholder" />
-          <div className="grid grid-cols-4 gap-3">
+          <div aria-hidden="true" className="aspect-square w-full rounded-xl bg-placeholder" />
+          <div aria-hidden="true" className="grid grid-cols-4 gap-3">
             {[0, 1, 2, 3].map((i) => (
               <div
                 key={i}
@@ -52,24 +52,19 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
             <DdpBadge />
           </div>
 
-          {product.description && <p className="text-sm text-muted">{product.description}</p>}
-
           <div className="rounded-lg bg-white text-sm">
-            {product.material && (
-              <Row label="Material" value={product.material} />
-            )}
             {product.retailer && <Row label="Händler" value={product.retailer} mono />}
             <Row label="Zoll & MwSt." value="Laut Händler im Preis enthalten (DDP)" />
             <Row label="Versandkosten" value="Siehe Händler" last />
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
-            <button className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-bg">
-              Zum Händler
-            </button>
             <WatchlistButton slug={product.slug} />
-            <span className="text-xs text-muted">Affiliate-Link über Awin</span>
           </div>
+
+          <p className="text-xs text-muted">
+            Beispielangaben: Preise sind noch nicht live und können vom Angebot des Händlers abweichen.
+          </p>
 
           <PriceAlertWidget />
         </div>

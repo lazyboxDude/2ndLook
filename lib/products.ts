@@ -9,26 +9,18 @@ export type Product = {
   status: ProductStatus;
   retailer?: string;
   brandSlug?: string;
-  lastChecked?: string;
-  spec?: string;
-  description?: string;
-  material?: string;
 };
 
 export const products: Product[] = [
   {
     slug: "nightwalker-hoodie",
-    name: "Nightwalker Hoodie — Limited Run",
+    name: "Nightwalker Hoodie",
     category: "streetwear",
     price: 119,
     wasPrice: 149,
     status: "gefallen",
     retailer: "Overkill Berlin",
     brandSlug: "overkill-berlin",
-    lastChecked: "Heute, 09:14",
-    material: "480 GSM Fleece, Bio-Baumwolle",
-    description:
-      "Premium Fleece, oversized Fit, reflektierender Print.",
   },
   {
     slug: "voltage-jacket",
@@ -39,7 +31,6 @@ export const products: Product[] = [
     status: "bald",
     retailer: "Nordkap Store",
     brandSlug: "nordkap-store",
-    lastChecked: "Heute, 09:14",
   },
   {
     slug: "ghost-cargo-pants",
@@ -78,8 +69,6 @@ export const products: Product[] = [
     status: "gefallen",
     retailer: "Fragrance Vault",
     brandSlug: "fragrance-vault",
-    lastChecked: "Heute, 09:14",
-    spec: "Extrait de Parfum · Frankreich",
   },
   {
     slug: "cuir-de-nuit",
@@ -87,7 +76,6 @@ export const products: Product[] = [
     category: "duefte",
     price: 49,
     status: "geprueft",
-    spec: "Eau de Parfum · Deutschland",
   },
   {
     slug: "santal-grau",
@@ -95,7 +83,6 @@ export const products: Product[] = [
     category: "duefte",
     price: 61,
     status: "geprueft",
-    spec: "Parfum Concentré · Schweiz",
   },
   {
     slug: "fumee-blanche",
@@ -103,7 +90,6 @@ export const products: Product[] = [
     category: "duefte",
     price: 43,
     status: "geprueft",
-    spec: "Eau de Parfum · Frankreich",
   },
 ];
 

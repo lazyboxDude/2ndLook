@@ -6,7 +6,7 @@ export default function PriceAlertWidget() {
         Preis-Alerts
       </div>
       <p className="mt-2 text-sm text-muted">
-        Diese Funktion ist noch in Vorbereitung. Aktuell werden keine Alerts gespeichert und keine
+        Diese Funktion ist noch nicht verfügbar. Es werden keine Alerts gespeichert und keine
         E-Mails verschickt.
       </p>
     </div>

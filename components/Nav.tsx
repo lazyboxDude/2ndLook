@@ -33,14 +33,15 @@ export default function Nav() {
   return (
     <header className="border-b border-placeholder bg-bg">
       <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-6 md:px-16">
-        <Link href="/" className="text-lg font-bold text-foreground">
+        <Link href="/" aria-label="2ndLook – Startseite" className="text-lg font-bold text-foreground">
           2ndLook
         </Link>
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav aria-label="Hauptnavigation" className="hidden items-center gap-8 md:flex">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
+              aria-current={isActive(link.href) ? "page" : undefined}
               className={
                 isActive(link.href)
                   ? "text-sm font-semibold text-foreground"

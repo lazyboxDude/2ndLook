@@ -24,7 +24,7 @@ export default function LoginPage() {
             name="email"
             required
             placeholder="name@beispiel.ch"
-            className="rounded-lg border border-placeholder bg-white px-3 py-2.5 text-foreground"
+            className="rounded-lg border border-border-strong bg-white px-3 py-2.5 text-foreground"
           />
         </label>
 
@@ -34,15 +34,11 @@ export default function LoginPage() {
             type="password"
             name="password"
             required
-            className="rounded-lg border border-placeholder bg-white px-3 py-2.5 text-foreground"
+            className="rounded-lg border border-border-strong bg-white px-3 py-2.5 text-foreground"
           />
         </label>
 
-        {state?.error && <p className="text-sm text-destructive">{state.error}</p>}
-
-        <div className="flex justify-end">
-          <span className="text-sm font-semibold text-muted">Passwort vergessen?</span>
-        </div>
+        {state?.error && <p role="alert" className="text-sm text-destructive">{state.error}</p>}
 
         <button
           type="submit"

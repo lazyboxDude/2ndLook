@@ -20,6 +20,14 @@ Next.js (App Router) + TypeScript + Tailwind CSS v4. Tailwind is configured CSS-
 - Prices are CHF-only (see 2NDLOOK-42): a DDP badge ("Inkl. Zoll & MwSt.") appears wherever a price is shown, and the product page shows a live EUR conversion hint alongside the CHF price.
 - Known gap, carried over from the approved design: on mobile, Homepage/Produktdetail/Legal pages have no bottom tab bar and no nav links (logo + watchlist icon only) — Feed/Watchlist are only reachable via the footer. This is a product decision baked into the reviewed mockup, not an oversight.
 
+## Compliance & Accessibility notes
+
+- Business/contact details live in `lib/business.ts` (placeholders — fill before launch, Plane 2NDLOOK-34). Minimum signup age is 16 (`MIN_AGE`), enforced by checkbox + server action.
+- `/datenloeschung` is the data-deletion request page (email-based; self-service deletion tracked in Plane 2NDLOOK-36). The app sends no marketing emails yet; unsubscribe links are tracked in 2NDLOOK-35.
+- Fonts (Fira Sans, Fira Code, Playfair Display) are all SIL OFL 1.1 — free for commercial use, self-hosted by `next/font/google`. No change needed.
+- Color tokens were adjusted for WCAG AA; `muted-light` is only for dark backgrounds (footer). Don't claim price checks, freshness or "reduced" prices without real data.
+- Decorative placeholder boxes use `aria-hidden`; add real `alt` text when real product images are added.
+
 ## Workflow
 
 Für jede neue Aufgabe in diesem Repository gilt dieser Ablauf:
