@@ -1,10 +1,43 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
 
 const STORAGE_KEY = "2ndlook.consent";
 
 type Choice = "all" | "necessary";
+
+const listeners = new Set<() => void>();
+let memoryChoice: Choice | null = null; // Fallback, falls localStorage nicht verfügbar ist
+
+function subscribe(cb: () => void) {
+  listeners.add(cb);
+  return () => listeners.delete(cb);
+}
+
+// null = noch keine Auswahl, undefined = Server (Auswahl unbekannt)
+function getSnapshot(): Choice | null {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === "all" || stored === "necessary") return stored;
+  } catch {
+    // ignore inaccessible storage
+  }
+  return memoryChoice;
+}
+
+function getServerSnapshot(): undefined {
+  return undefined;
+}
+
+function saveChoice(next: Choice) {
+  memoryChoice = next;
+  try {
+    localStorage.setItem(STORAGE_KEY, next);
+  } catch {
+    // ignore inaccessible storage
+  }
+  listeners.forEach((cb) => cb());
+}
 
 type ConsentContextValue = {
   /** Affiliate-/Marketing-Tracking (Awin) erlaubt */
@@ -17,36 +50,17 @@ type ConsentContextValue = {
 
 const ConsentContext = createContext<ConsentContextValue | null>(null);
 
-function readChoice(): Choice | null {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return stored === "all" || stored === "necessary" ? stored : null;
-  } catch {
-    return null;
-  }
-}
-
 export function ConsentProvider({ children }: { children: ReactNode }) {
-  const [choice, setChoice] = useState<Choice | null>(null);
-  const [bannerOpen, setBannerOpen] = useState(false);
-
-  useEffect(() => {
-    const stored = readChoice();
-    setChoice(stored);
-    setBannerOpen(stored === null);
-  }, []);
+  const choice = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const [reopened, setReopened] = useState(false);
+  const bannerOpen = choice !== undefined && (choice === null || reopened);
 
   const choose = useCallback((next: Choice) => {
-    try {
-      localStorage.setItem(STORAGE_KEY, next);
-    } catch {
-      // ignore inaccessible storage
-    }
-    setChoice(next);
-    setBannerOpen(false);
+    saveChoice(next);
+    setReopened(false);
   }, []);
 
-  const openBanner = useCallback(() => setBannerOpen(true), []);
+  const openBanner = useCallback(() => setReopened(true), []);
 
   const value = useMemo(
     () => ({ marketing: choice === "all", bannerOpen, choose, openBanner }),

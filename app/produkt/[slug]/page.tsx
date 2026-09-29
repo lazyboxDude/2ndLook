@@ -5,7 +5,6 @@ import StatusTag from "@/components/StatusTag";
 import DdpBadge from "@/components/DdpBadge";
 import PriceCard from "@/components/PriceCard";
 import PriceAlertWidget from "@/components/PriceAlertWidget";
-import PriceHistoryChart from "@/components/PriceHistoryChart";
 import WatchlistButton from "@/components/WatchlistButton";
 
 export default async function ProductPage({ params }: PageProps<"/produkt/[slug]">) {
@@ -14,7 +13,6 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
   if (!product) notFound();
 
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 4);
-  const fxEstimate = (product.price * 1.0526).toFixed(2);
 
   return (
     <div className="mx-auto max-w-[1440px] px-6 py-8 md:px-16">
@@ -53,7 +51,6 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
             </span>
             <DdpBadge />
           </div>
-          <p className="font-mono text-sm text-muted">≈ € {fxEstimate} · Live-Kurs</p>
 
           {product.description && <p className="text-sm text-muted">{product.description}</p>}
 
@@ -62,13 +59,8 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
               <Row label="Material" value={product.material} />
             )}
             {product.retailer && <Row label="Händler" value={product.retailer} mono />}
-            {product.lastChecked && (
-              <Row label="Zuletzt geprüft" value={product.lastChecked} mono />
-            )}
-            {product.wasPrice && (
-              <Row label="Tiefstpreis (90 Tage)" value={formatChf(product.price)} mono />
-            )}
-            <Row label="Versand" value="DDP, Zoll & MwSt. bereits im Preis enthalten" last />
+            <Row label="Zoll & MwSt." value="Laut Händler im Preis enthalten (DDP)" />
+            <Row label="Versandkosten" value="Siehe Händler" last />
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
@@ -76,30 +68,12 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
               Zum Händler
             </button>
             <WatchlistButton slug={product.slug} />
-            <span className="text-xs text-muted">Über Awin, geprüfter Partner</span>
+            <span className="text-xs text-muted">Affiliate-Link über Awin</span>
           </div>
 
-          <PriceAlertWidget currentPrice={product.price} />
+          <PriceAlertWidget />
         </div>
       </div>
-
-      {product.wasPrice && (
-        <section className="mt-14 rounded-xl bg-surface-hero p-6 md:p-8">
-          <h2 className="text-lg font-bold text-foreground">Preisverlauf der letzten 90 Tage</h2>
-          <div className="mt-4">
-            <PriceHistoryChart lowLabel={`Tiefstpreis: ${formatChf(product.price)} (heute)`} />
-          </div>
-        </section>
-      )}
-
-      <section className="mt-14">
-        <span className="text-xs font-semibold text-muted">Aus der Community</span>
-        <blockquote className="mt-3 max-w-[640px] text-xl font-medium leading-snug text-foreground">
-          „Der Preisverlauf hat genau gestimmt — ich habe drei Wochen gewartet und tatsächlich den
-          Tiefstpreis erwischt.“
-        </blockquote>
-        <p className="mt-2 text-sm text-muted">— Nutzer, Zürich</p>
-      </section>
 
       <section className="mt-14 pb-16">
         <h2 className="text-xl font-bold text-foreground md:text-2xl">Ähnliche Preise</h2>

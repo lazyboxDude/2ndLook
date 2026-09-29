@@ -8,7 +8,7 @@ export default function CookieConsent() {
   if (!bannerOpen) return null;
 
   const button =
-    "flex-1 rounded-lg border border-primary px-4 py-2.5 text-sm font-semibold md:flex-none md:px-6";
+    "flex-1 rounded-lg border border-primary bg-primary px-4 py-2.5 text-sm font-semibold text-bg md:flex-none md:px-6";
 
   return (
     <div
@@ -30,10 +30,10 @@ export default function CookieConsent() {
           .
         </p>
         <div className="flex gap-3">
-          <button type="button" onClick={() => choose("necessary")} className={`${button} bg-bg text-foreground`}>
+          <button type="button" onClick={() => choose("necessary")} className={button}>
             Nur notwendige
           </button>
-          <button type="button" onClick={() => choose("all")} className={`${button} bg-primary text-bg`}>
+          <button type="button" onClick={() => choose("all")} className={button}>
             Alle akzeptieren
           </button>
         </div>

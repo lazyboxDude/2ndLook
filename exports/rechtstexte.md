@@ -48,7 +48,7 @@ Details zu Namen, Zweck und Dauer findest du in unserer Cookie-Richtlinie (/cook
 
 ## 4. Nutzerkonto
 
-Für ein Nutzerkonto speichern wir deine E-Mail-Adresse und ein Passwort (verschlüsselt). Die Daten werden bei Supabase (Supabase Inc.) gespeichert und dort bearbeitet.
+Für ein Nutzerkonto speichern wir deine E-Mail-Adresse und ein Passwort (verschlüsselt) sowie, falls du ihn angibst, deinen Namen. Die Daten werden bei Supabase (Supabase Inc.) gespeichert und dort bearbeitet.
 
 Zweck ist die Bereitstellung des von dir gewünschten Dienstes. Du kannst dein Konto jederzeit löschen; die Daten werden dann gelöscht, soweit keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
 
