@@ -1,6 +1,7 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { sendConfirmationEmail } from "@/lib/newsletter-email";
 
 export type NewsletterState = { error: string } | { success: true } | null;
 
@@ -21,12 +22,17 @@ export async function subscribe(
     return { error: "Bitte stimme der Datenschutzerklärung zu." };
   }
 
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   if (!supabase) return { error: "Die Anmeldung ist derzeit nicht verfügbar." };
 
-  const { error } = await supabase.rpc("subscribe_newsletter", { p_email: email });
+  const { data: token, error } = await supabase.rpc("subscribe_newsletter", { p_email: email });
   if (error) return { error: "Anmeldung fehlgeschlagen. Bitte versuche es später erneut." };
 
-  // Duplicates are treated as success so the form can't be used to probe for addresses.
+  // A token comes back only for new or unconfirmed addresses that weren't mailed in the last
+  // 10 minutes. Everyone else gets the same success message, so the form can't be used to
+  // probe for addresses or to spam an inbox.
+  if (token && !(await sendConfirmationEmail(email, token as string))) {
+    return { error: "Die Bestätigungsmail konnte nicht gesendet werden. Bitte versuche es später erneut." };
+  }
   return { success: true };
 }
