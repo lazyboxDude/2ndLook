@@ -12,8 +12,7 @@ export default function NewsletterForm() {
   if (state && "success" in state) {
     return (
       <p role="status" className="text-sm text-bg">
-        Fast geschafft: Wir haben dir eine Bestätigung geschickt. Klick auf den Link darin, um
-        die Anmeldung abzuschliessen.
+        Danke, du bist auf der Liste.
       </p>
     );
   }
