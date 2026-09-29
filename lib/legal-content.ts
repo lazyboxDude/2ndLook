@@ -70,19 +70,26 @@ export const datenschutz: LegalPage = {
       ],
     },
     {
-      h2: "5. Affiliate-Links und Partnerprogramme",
+      h2: "5. Newsletter",
+      body: [
+        "Wenn du dich für den Newsletter anmeldest, speichern wir deine E-Mail-Adresse und den Zeitpunkt deiner Bestätigung (Double-Opt-in), um dir Neuigkeiten zu Preisen und Drops zu senden.",
+        "Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Du kannst sie jederzeit widerrufen: [Abmelde-Link / E-Mail-Adresse].",
+      ],
+    },
+    {
+      h2: "6. Affiliate-Links und Partnerprogramme",
       body: [
         "Diese Website enthält Affiliate-Links zu Partnerhändlern, u. a. über das Netzwerk Awin. Beim Klick auf einen solchen Link kann ein Tracking-Cookie gesetzt werden, das dem Partnernetzwerk mitteilt, dass die Weiterleitung von 2ndLook stammt.",
         "Über den Klick hinaus werden dabei keine personenbezogenen Daten an uns übermittelt.",
       ],
     },
     {
-      h2: "6. Deine Rechte",
+      h2: "7. Deine Rechte",
       body: [
         "Du hast das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung deiner Daten sowie ein Widerspruchsrecht gegen die Verarbeitung. Wende dich hierzu an [E-Mail-Adresse].",
       ],
     },
-    { h2: "7. Kontakt für Datenschutzanfragen", body: ["[Name/Abteilung], [E-Mail-Adresse]"] },
+    { h2: "8. Kontakt für Datenschutzanfragen", body: ["[Name/Abteilung], [E-Mail-Adresse]"] },
   ],
 };
 

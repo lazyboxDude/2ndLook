@@ -2,6 +2,7 @@ import Link from "next/link";
 import { products } from "@/lib/products";
 import { getBlogPostBySlug } from "@/lib/blog";
 import PriceCard from "@/components/PriceCard";
+import NewsletterForm from "@/components/NewsletterForm";
 
 const heroPostSlug = "die-besten-streetwear-marken-2026";
 const dealSlugs = ["nightwalker-hoodie", "voltage-jacket", "ambre-nomade"];
@@ -11,7 +12,18 @@ const journalSlugs = [
   "herbst-ausblick-preise-im-vergleich",
 ];
 
-export default function HomePage() {
+const newsletterNotices: Record<string, string> = {
+  bestaetigt: "Danke, deine Newsletter-Anmeldung ist bestätigt.",
+  ungueltig: "Dieser Bestätigungslink ist ungültig oder abgelaufen.",
+};
+
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ newsletter?: string }>;
+}) {
+  const { newsletter } = await searchParams;
+  const notice = newsletter ? newsletterNotices[newsletter] : undefined;
   const heroPost = getBlogPostBySlug(heroPostSlug)!;
   const dealProducts = dealSlugs.map((slug) => products.find((p) => p.slug === slug)!);
   const journalPosts = journalSlugs.map((slug) => getBlogPostBySlug(slug)!);
@@ -72,6 +84,26 @@ export default function HomePage() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="newsletter" className="bg-foreground px-6 py-14 md:px-16 md:py-20">
+        <div className="mx-auto flex max-w-[1440px] flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="flex max-w-[520px] flex-col gap-2">
+            <h2 className="font-serif text-2xl font-bold text-bg md:text-3xl">
+              Kein Drop, kein Preissturz verpasst
+            </h2>
+            <p className="text-sm text-muted-light">
+              Der 2ndLook-Newsletter: die besten Preisrückgänge und Restocks, kompakt in deinem
+              Postfach.
+            </p>
+            {notice && (
+              <p role="status" className="text-sm font-semibold text-bg">
+                {notice}
+              </p>
+            )}
+          </div>
+          <NewsletterForm />
         </div>
       </section>
     </>

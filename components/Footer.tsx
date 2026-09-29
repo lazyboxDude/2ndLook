@@ -19,7 +19,7 @@ const columns = [
   {
     title: "Community",
     links: [
-      { href: "/", label: "Newsletter" },
+      { href: "/#newsletter", label: "Newsletter" },
       { href: "/", label: "Instagram" },
     ],
   },
