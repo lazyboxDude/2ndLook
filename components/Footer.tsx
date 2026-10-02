@@ -12,8 +12,8 @@ const columns = [
   {
     title: "Journal",
     links: [
-      { href: "/blog?category=streetwear", label: "Streetwear-News" },
-      { href: "/blog?category=duefte", label: "Düfte-News" },
+      { href: "/blog?category=streetwear", label: "2Wear-News" },
+      { href: "/blog?category=duefte", label: "2Scent-News" },
       { href: "/blog", label: "Alle Artikel" },
     ],
   },

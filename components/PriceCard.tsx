@@ -5,48 +5,64 @@ import type { Product } from "@/lib/products";
 import { formatChf } from "@/lib/products";
 import StatusTag from "@/components/StatusTag";
 import { DdpNote } from "@/components/DdpBadge";
+import { BookmarkIcon, LinkIcon } from "@/components/icons";
 import { useWatchlist } from "@/lib/watchlist-context";
 
 export default function PriceCard({ product }: { product: Product }) {
   const { isWatched, toggle } = useWatchlist();
   const watched = isWatched(product.slug);
+  const soldOut = product.status === "vergriffen";
 
   return (
-    <Link href={`/produkt/${product.slug}`} className="flex flex-col gap-2">
-      <div className="relative aspect-square w-full rounded-lg bg-placeholder shadow-lg shadow-slate-900/10">
+    <div className="flex flex-col gap-2.5">
+      <Link
+        href={`/produkt/${product.slug}`}
+        aria-label={product.name}
+        className="relative block aspect-[1/1.05] w-full border border-line bg-surface"
+      >
+        <div className="absolute inset-[19%] rounded bg-placeholder" />
+        {soldOut ? (
+          <span className="absolute left-2.5 top-2.5 bg-foreground px-2 py-1 font-mono text-xs font-medium text-surface">
+            VERGRIFFEN
+          </span>
+        ) : (
+          product.wasPrice && (
+            <span className="absolute left-2.5 top-2.5 border border-line bg-surface px-2 py-1 font-mono text-xs font-semibold text-accent">
+              SALE
+            </span>
+          )
+        )}
+      </Link>
+
+      <div className="flex items-center justify-between">
+        <span className="flex items-baseline gap-2 font-mono">
+          <span className="text-[15px] font-semibold text-foreground">{formatChf(product.price)}</span>
+          {product.wasPrice && (
+            <span className="text-xs text-muted line-through">{formatChf(product.wasPrice)}</span>
+          )}
+        </span>
         <button
           type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggle(product.slug);
-          }}
+          onClick={() => toggle(product.slug)}
           aria-pressed={watched}
           aria-label={watched ? "Von Watchlist entfernen" : "Zur Watchlist hinzufügen"}
-          className={`absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full ${
-            watched ? "bg-foreground text-bg" : "bg-white/85 text-foreground"
-          }`}
+          className="-mr-2.5 flex h-11 w-11 items-center justify-center text-foreground"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill={watched ? "currentColor" : "none"} aria-hidden="true">
-            <path
-              d="M12 21s-7.5-4.6-10-9.3C.5 8 2.2 4.5 5.6 4c2-.3 3.9.6 5 2.2C11.7 4.6 13.6 3.7 15.6 4c3.4.5 5.1 4 3.6 7.7C16.7 16.4 12 21 12 21z"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            />
-          </svg>
+          <BookmarkIcon filled={watched} />
         </button>
       </div>
-      <StatusTag status={product.status} />
-      <span className="text-sm font-semibold text-foreground">{product.name}</span>
-      {product.wasPrice ? (
-        <span className="flex items-baseline gap-2 font-mono text-sm">
-          <span className="font-bold text-green">{formatChf(product.price)}</span>
-          <span className="text-muted line-through">{formatChf(product.wasPrice)}</span>
-        </span>
-      ) : (
-        <span className="font-mono text-sm text-muted">{formatChf(product.price)}</span>
-      )}
-      <DdpNote />
-    </Link>
+
+      <Link href={`/produkt/${product.slug}`} className="-mt-3 flex flex-col gap-1.5">
+        <span className="text-sm font-semibold text-foreground">{product.name}</span>
+        {product.retailer && (
+          <span className="flex items-center gap-1.5 font-mono text-xs text-muted">
+            <LinkIcon />
+            Von {product.retailer}
+          </span>
+        )}
+        {product.status === "bald" && <StatusTag status={product.status} />}
+        <DdpNote />
+      </Link>
+    </div>
   );
 }

@@ -24,7 +24,7 @@ const firaCode = Fira_Code({
 const playfairDisplay = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["700"],
+  weight: ["500", "700"],
 });
 
 export const metadata: Metadata = {

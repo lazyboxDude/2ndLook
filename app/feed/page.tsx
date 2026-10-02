@@ -1,117 +1,234 @@
-import { products, formatChf } from "@/lib/products";
-import PriceCard from "@/components/PriceCard";
-import DdpBadge from "@/components/DdpBadge";
-import BottomTabBar from "@/components/BottomTabBar";
-import StatusTag from "@/components/StatusTag";
-import WatchlistButton from "@/components/WatchlistButton";
 import Link from "next/link";
+import {
+  products,
+  categoryIntros,
+  categoryLabels,
+  isProductCategory,
+  type Product,
+  type ProductStatus,
+} from "@/lib/products";
+import { blogPosts, postCategoryLabel } from "@/lib/blog";
+import PriceCard from "@/components/PriceCard";
+import FilterPills, { buildHref, type FeedParams } from "@/components/FilterPills";
+import { JournalPost, ProductPost } from "@/components/FeedPost";
 
-const chips = ["Alle", "Geprüft", "Bald verfügbar", "Vergriffen", "Auf Watchlist"];
+const statuses: { label: string; value: ProductStatus }[] = [
+  { label: "Preis gefallen", value: "gefallen" },
+  { label: "Bald verfügbar", value: "bald" },
+  { label: "Vergriffen", value: "vergriffen" },
+];
 
-const titles: Record<string, string> = {
-  streetwear: "Streetwear",
-  duefte: "Düfte",
-};
+const sortOptions = [
+  { label: "Empfohlen", value: undefined },
+  { label: "Preis aufsteigend", value: "price-asc" },
+  { label: "Preis absteigend", value: "price-desc" },
+];
+
+const tabs = [
+  { label: "Für dich", tab: undefined },
+  { label: "Preis gefallen", tab: "preisfall" },
+  { label: "Journal", tab: "journal" },
+];
+
+function first(value: string | string[] | undefined): string | undefined {
+  return typeof value === "string" && value ? value : undefined;
+}
 
 export default async function FeedPage({ searchParams }: PageProps<"/feed">) {
-  const { category } = await searchParams;
-  const cat = typeof category === "string" ? category : undefined;
-  const list = cat ? products.filter((p) => p.category === cat) : products;
-  const spotlight = list.find((p) => p.status === "gefallen") ?? list[0];
-  const rest = list.filter((p) => p.slug !== spotlight?.slug);
+  const raw = await searchParams;
+  const params: FeedParams = {
+    category: first(raw.category),
+    q: first(raw.q),
+    status: first(raw.status),
+    sale: first(raw.sale),
+    sort: first(raw.sort),
+    tab: first(raw.tab),
+  };
+  const category = isProductCategory(params.category) ? params.category : undefined;
+  const isGrid = Boolean(category || params.q);
+
+  return isGrid ? (
+    <CategoryView params={params} category={category} />
+  ) : (
+    <StreamView tab={params.tab} />
+  );
+}
+
+function CategoryView({
+  params,
+  category,
+}: {
+  params: FeedParams;
+  category: Product["category"] | undefined;
+}) {
+  const q = params.q?.toLowerCase();
+  let list: Product[] = products.filter(
+    (p) =>
+      (!category || p.category === category) &&
+      (!q || p.name.toLowerCase().includes(q) || p.retailer?.toLowerCase().includes(q)) &&
+      (!params.status || p.status === params.status) &&
+      (!params.sale || p.wasPrice),
+  );
+  if (params.sort === "price-asc") list = [...list].sort((a, b) => a.price - b.price);
+  if (params.sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
+
+  const title = category ? categoryLabels[category] : `Suche: „${params.q}“`;
+  const base = "/feed";
 
   return (
-    <>
-      <section className="bg-surface-hero px-6 py-10 md:px-16 md:py-14">
-        <div className="mx-auto max-w-[1440px]">
-          <h1 className="text-2xl font-bold text-foreground md:text-3xl">
-            {cat ? titles[cat] : "Neu im Feed"}
+    <div className="mx-auto max-w-[1440px] px-4 pb-20 pt-6 md:px-16 md:pt-7">
+      <nav aria-label="Brotkrumen" className="text-[13px] text-muted">
+        <Link href="/">Home</Link> / <Link href="/feed">Feed</Link> /{" "}
+        <span className="text-foreground">{category ? categoryLabels[category] : "Suche"}</span>
+      </nav>
+
+      <div className="mt-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div className="flex flex-col gap-2.5">
+          <h1 className="font-serif text-4xl font-medium leading-[1.05] tracking-tight text-foreground md:text-[52px]">
+            {title}
           </h1>
-          <p className="mt-2 max-w-[520px] text-sm text-muted">
-            Frisch erfasste Preise für Streetwear, Sneaker und Düfte. Auf die Watchlist setzen und
-            benachrichtigt werden, sobald der Preis fällt.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            {chips.map((chip, i) => (
-              <span
-                key={chip}
-                className={`rounded-full px-4 py-2 text-sm font-medium ${
-                  i === 0 ? "bg-foreground text-bg" : "border border-placeholder bg-white text-muted"
+          {category && <p className="max-w-[560px] text-[15px] text-muted">{categoryIntros[category]}</p>}
+        </div>
+        <p className="font-serif text-xl text-foreground md:text-right md:text-2xl">
+          {list.length} {list.length === 1 ? "Preis" : "Preise"}
+        </p>
+      </div>
+
+      <div className="mt-6 flex flex-col gap-4">
+        <FilterPills
+          base={base}
+          params={params}
+          options={[
+            { label: "Sale", patch: { sale: params.sale ? undefined : "1" }, active: Boolean(params.sale) },
+            ...statuses.map((s) => ({
+              label: s.label,
+              patch: { status: params.status === s.value ? undefined : s.value },
+              active: params.status === s.value,
+            })),
+          ]}
+        />
+        <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            <span className="text-muted">Sortieren nach:</span>
+            {sortOptions.map((option) => (
+              <Link
+                key={option.label}
+                href={buildHref(base, params, { sort: option.value })}
+                aria-current={params.sort === option.value ? "true" : undefined}
+                className={`py-2.5 ${
+                  params.sort === option.value ? "font-semibold text-foreground underline" : "text-foreground"
                 }`}
               >
-                {chip}
-              </span>
+                {option.label}
+              </Link>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {spotlight && (
-        <section className="px-6 py-10 md:px-16 md:py-14">
-          <div className="mx-auto flex max-w-[1440px] flex-col gap-6 rounded-xl bg-surface-hero p-6 md:flex-row md:p-8">
-            <div className="aspect-square w-full rounded-lg bg-placeholder md:w-[400px]" />
-            <div className="flex flex-col gap-3">
-              <StatusTag status={spotlight.status} />
-              <h2 className="text-2xl font-bold text-foreground">{spotlight.name}</h2>
-              {spotlight.description && (
-                <p className="text-sm text-muted">{spotlight.description}</p>
-              )}
-              {(spotlight.material || spotlight.retailer || spotlight.lastChecked) && (
-                <div className="mt-2 rounded-lg bg-white text-sm">
-                  {spotlight.material && (
-                    <div className="flex justify-between border-b border-placeholder px-4 py-2.5">
-                      <span className="text-muted">Material</span>
-                      <span className="font-medium text-foreground">{spotlight.material}</span>
-                    </div>
-                  )}
-                  {spotlight.retailer && (
-                    <div className="flex justify-between border-b border-placeholder px-4 py-2.5">
-                      <span className="text-muted">Händler</span>
-                      <span className="font-mono font-medium text-foreground">
-                        {spotlight.retailer}
-                      </span>
-                    </div>
-                  )}
-                  {spotlight.lastChecked && (
-                    <div className="flex justify-between px-4 py-2.5">
-                      <span className="text-muted">Zuletzt geprüft</span>
-                      <span className="font-mono font-medium text-foreground">
-                        {spotlight.lastChecked}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )}
-              <div className="mt-2 flex items-center gap-3">
-                <span className="font-mono text-2xl font-bold text-foreground">
-                  {formatChf(spotlight.price)}
-                </span>
-                <DdpBadge />
-                <Link
-                  href={`/produkt/${spotlight.slug}`}
-                  className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-bg"
-                >
-                  Zum Händler
-                </Link>
-                <WatchlistButton slug={spotlight.slug} />
-              </div>
-            </div>
-          </div>
-        </section>
+      {list.length === 0 ? (
+        <p className="mt-10 text-sm text-muted">Keine Preise gefunden. Passe die Filter an oder suche etwas anderes.</p>
+      ) : (
+        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-x-5">
+          {list.map((p) => (
+            <PriceCard key={p.slug} product={p} />
+          ))}
+        </div>
       )}
+    </div>
+  );
+}
 
-      <section className="px-6 pb-24 md:px-16 md:pb-16">
-        <div className="mx-auto max-w-[1440px]">
-          <h2 className="text-xl font-bold text-foreground md:text-2xl">Ähnliche Preise</h2>
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
-            {rest.map((p) => (
-              <PriceCard key={p.slug} product={p} />
-            ))}
-          </div>
+function StreamView({ tab }: { tab: string | undefined }) {
+  const productPosts = [...products]
+    .filter((p) => tab !== "preisfall" || p.status === "gefallen")
+    .sort((a, b) => Number(b.status === "gefallen") - Number(a.status === "gefallen"));
+  const journalPosts = blogPosts;
+
+  type Item = { kind: "product"; product: Product } | { kind: "journal"; post: (typeof blogPosts)[number] };
+  const items: Item[] = [];
+  if (tab === "journal") {
+    journalPosts.forEach((post) => items.push({ kind: "journal", post }));
+  } else {
+    // Ein Journal-Artikel nach jeweils zwei Preis-Posts.
+    let j = 0;
+    productPosts.forEach((product, i) => {
+      items.push({ kind: "product", product });
+      if (tab !== "preisfall" && (i + 1) % 2 === 0 && j < journalPosts.length) {
+        items.push({ kind: "journal", post: journalPosts[j++] });
+      }
+    });
+  }
+
+  return (
+    <div className="mx-auto max-w-[1120px] px-4 pb-20 pt-6 md:px-8">
+      <nav aria-label="Feed-Ansicht" className="flex gap-6 overflow-x-auto border-b border-line">
+        {tabs.map((t) => {
+          const active = t.tab === tab;
+          return (
+            <Link
+              key={t.label}
+              href={buildHref("/feed", {}, { tab: t.tab })}
+              aria-current={active ? "page" : undefined}
+              className={`whitespace-nowrap border-b-2 py-3.5 text-[15px] ${
+                active
+                  ? "border-foreground font-semibold text-foreground"
+                  : "border-transparent text-muted hover:text-foreground"
+              }`}
+            >
+              {t.label}
+            </Link>
+          );
+        })}
+        <Link
+          href="/mein-feed"
+          className="whitespace-nowrap border-b-2 border-transparent py-3.5 text-[15px] text-muted hover:text-foreground"
+        >
+          Gefolgt
+        </Link>
+      </nav>
+
+      <div className="mt-8 flex flex-col gap-10 lg:flex-row lg:items-start">
+        <div className="flex w-full max-w-[720px] flex-col gap-7">
+          {items.length === 0 && <p className="text-sm text-muted">Noch keine Beiträge in dieser Ansicht.</p>}
+          {items.map((item) =>
+            item.kind === "product" ? (
+              <ProductPost key={`p-${item.product.slug}`} product={item.product} />
+            ) : (
+              <JournalPost key={`j-${item.post.slug}`} post={item.post} />
+            ),
+          )}
         </div>
-      </section>
 
-      <BottomTabBar />
-    </>
+        <aside className="flex w-full flex-col gap-5 lg:w-[340px] lg:shrink-0">
+          <section className="border border-line bg-surface p-5">
+            <h2 className="font-serif text-xl font-bold text-foreground">Neu im Journal</h2>
+            <ul className="mt-3 flex flex-col">
+              {blogPosts.slice(0, 3).map((post) => (
+                <li key={post.slug}>
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="flex min-h-11 flex-col justify-center py-2 text-sm text-foreground hover:underline"
+                  >
+                    <span className="font-mono text-xs uppercase text-muted">{postCategoryLabel(post)}</span>
+                    {post.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link href="/blog" className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold text-foreground">
+              Alle Artikel →
+            </Link>
+          </section>
+          <section className="border border-line bg-surface p-5">
+            <h2 className="font-serif text-xl font-bold text-foreground">Deine Watchlist</h2>
+            <p className="mt-2 text-sm text-muted">Merke dir Preise und behalte sie im Blick.</p>
+            <Link href="/watchlist" className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold text-foreground">
+              Zur Watchlist →
+            </Link>
+          </section>
+        </aside>
+      </div>
+    </div>
   );
 }

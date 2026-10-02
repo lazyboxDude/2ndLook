@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProductBySlug, products, formatChf } from "@/lib/products";
+import { getProductBySlug, products, formatChf, categoryLabels } from "@/lib/products";
 import StatusTag from "@/components/StatusTag";
 import DdpBadge from "@/components/DdpBadge";
 import PriceCard from "@/components/PriceCard";
@@ -15,22 +15,21 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 4);
 
   return (
-    <div className="mx-auto max-w-[1440px] px-6 py-8 md:px-16">
-      <nav className="text-sm text-muted">
-        <Link href="/feed">Feed</Link> / <Link href={`/feed?category=${product.category}`}>
-          {product.category === "streetwear" ? "Streetwear" : "Düfte"}
-        </Link>{" "}
-        / <span className="font-medium text-foreground">{product.name}</span>
+    <div className="mx-auto max-w-[1440px] px-4 pb-16 pt-6 md:px-16 md:pt-7">
+      <nav aria-label="Brotkrumen" className="text-[13px] text-muted">
+        <Link href="/">Home</Link> / <Link href="/feed">Feed</Link> /{" "}
+        <Link href={`/feed?category=${product.category}`}>{categoryLabels[product.category]}</Link> /{" "}
+        <span className="text-foreground">{product.name}</span>
       </nav>
 
-      <div className="mt-6 flex flex-col gap-10 md:flex-row md:gap-14">
+      <div className="mt-6 flex flex-col gap-8 md:flex-row md:gap-16">
         <div className="flex flex-col gap-4 md:w-1/2">
-          <div className="aspect-square w-full rounded-xl bg-placeholder" />
+          <div className="relative aspect-square w-full border border-line bg-surface"><div className="absolute inset-[20%] rounded bg-placeholder" /></div>
           <div className="grid grid-cols-4 gap-3">
             {[0, 1, 2, 3].map((i) => (
               <div
                 key={i}
-                className={`aspect-square rounded-lg ${i === 0 ? "bg-foreground/70" : "bg-placeholder"}`}
+                className={`aspect-square border bg-surface ${i === 0 ? "border-foreground" : "border-line"}`}
               />
             ))}
           </div>
@@ -38,7 +37,7 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
 
         <div className="flex flex-col gap-4 md:w-1/2">
           <StatusTag status={product.status} />
-          <h1 className="text-2xl font-bold text-foreground md:text-3xl">{product.name}</h1>
+          <h1 className="font-serif text-3xl font-medium leading-[1.1] tracking-tight text-foreground md:text-4xl">{product.name}</h1>
 
           <div className="flex flex-wrap items-center gap-3">
             {product.wasPrice && (
@@ -46,7 +45,7 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
                 {formatChf(product.wasPrice)}
               </span>
             )}
-            <span className="font-mono text-2xl font-bold text-green">
+            <span className={`font-mono text-3xl font-semibold ${product.wasPrice ? "text-green" : "text-foreground"}`}>
               {formatChf(product.price)}
             </span>
             <DdpBadge />
@@ -54,7 +53,7 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
 
           {product.description && <p className="text-sm text-muted">{product.description}</p>}
 
-          <div className="rounded-lg bg-white text-sm">
+          <div className="border border-line bg-surface text-sm">
             {product.material && (
               <Row label="Material" value={product.material} />
             )}
@@ -64,7 +63,7 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
-            <button className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-bg">
+            <button className="flex h-12 min-w-[220px] items-center justify-center rounded-sm bg-primary px-6 text-sm font-semibold text-bg">
               Zum Händler
             </button>
             <WatchlistButton slug={product.slug} />
@@ -76,8 +75,8 @@ export default async function ProductPage({ params }: PageProps<"/produkt/[slug]
       </div>
 
       <section className="mt-14 pb-16">
-        <h2 className="text-xl font-bold text-foreground md:text-2xl">Ähnliche Preise</h2>
-        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+        <h2 className="font-serif text-3xl font-medium tracking-tight text-foreground">Ähnliche Preise</h2>
+        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-x-5">
           {related.map((p) => (
             <PriceCard key={p.slug} product={p} />
           ))}
@@ -99,7 +98,7 @@ function Row({
   last?: boolean;
 }) {
   return (
-    <div className={`flex justify-between px-4 py-2.5 ${last ? "" : "border-b border-placeholder"}`}>
+    <div className={`flex justify-between px-4 py-2.5 ${last ? "" : "border-b border-line"}`}>
       <span className="text-muted">{label}</span>
       <span className={`font-medium text-foreground ${mono ? "font-mono" : ""}`}>{value}</span>
     </div>

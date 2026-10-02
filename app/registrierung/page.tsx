@@ -37,7 +37,7 @@ export default function RegistrierungPage() {
             type="text"
             name="name"
             placeholder="Optional"
-            className="rounded-lg border border-placeholder bg-white px-3 py-2.5 text-foreground"
+            className="rounded-sm border border-line bg-surface px-3 py-2.5 text-foreground"
           />
         </label>
 
@@ -48,7 +48,7 @@ export default function RegistrierungPage() {
             name="email"
             required
             placeholder="name@beispiel.ch"
-            className="rounded-lg border border-placeholder bg-white px-3 py-2.5 text-foreground"
+            className="rounded-sm border border-line bg-surface px-3 py-2.5 text-foreground"
           />
         </label>
 
@@ -60,7 +60,7 @@ export default function RegistrierungPage() {
             required
             minLength={8}
             placeholder="Mind. 8 Zeichen"
-            className="rounded-lg border border-placeholder bg-white px-3 py-2.5 text-foreground"
+            className="rounded-sm border border-line bg-surface px-3 py-2.5 text-foreground"
           />
         </label>
 
@@ -81,13 +81,13 @@ export default function RegistrierungPage() {
         <button
           type="submit"
           disabled={pending}
-          className="rounded-full bg-primary px-5 py-3 text-sm font-semibold text-bg disabled:opacity-60"
+          className="rounded-sm bg-primary px-5 py-3 text-sm font-semibold text-bg disabled:opacity-60"
         >
           {pending ? "Konto wird erstellt …" : "Konto erstellen"}
         </button>
       </form>
 
-      <div className="flex flex-col items-center gap-4 border-t border-placeholder pt-4 text-sm">
+      <div className="flex flex-col items-center gap-4 border-t border-line pt-4 text-sm">
         <p className="text-muted">
           Schon ein Konto?{" "}
           <Link href="/login" className="font-semibold text-primary">

@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
+import { categoryLabels } from "@/lib/products";
+import { BookmarkIcon, SearchIcon, UserIcon } from "@/components/icons";
 
 const loggedInLinks = [
   { href: "/feed", label: "Feed" },
-  { href: "/feed?category=streetwear", label: "Streetwear" },
-  { href: "/feed?category=duefte", label: "Düfte" },
-  { href: "/watchlist", label: "Watchlist" },
+  { href: "/feed?category=streetwear", label: categoryLabels.streetwear },
+  { href: "/feed?category=duefte", label: categoryLabels.duefte },
+  { href: "/blog", label: "Journal" },
 ];
 
 const loggedOutLinks = [{ href: "/blog", label: "Journal" }];
@@ -18,9 +20,6 @@ export default function Nav() {
   const searchParams = useSearchParams();
   const category = searchParams?.get("category") ?? null;
   const { user } = useAuth();
-  const userInitial = user
-    ? ((user.user_metadata?.full_name as string | undefined)?.[0] ?? user.email?.[0] ?? "?").toUpperCase()
-    : null;
   const links = user ? loggedInLinks : loggedOutLinks;
 
   const isActive = (href: string) => {
@@ -31,72 +30,88 @@ export default function Nav() {
   };
 
   return (
-    <header className="border-b border-placeholder bg-bg">
-      <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-6 md:px-16">
-        <Link href="/" className="text-lg font-bold text-foreground">
+    <header className="border-b border-line bg-bg">
+      <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-3 px-4 md:h-20 md:gap-8 md:px-16">
+        <Link href="/" className="text-xl font-bold tracking-tight text-foreground md:text-3xl">
           2ndLook
         </Link>
-        <nav className="hidden items-center gap-8 md:flex">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={
-                isActive(link.href)
-                  ? "text-sm font-semibold text-foreground"
-                  : "text-sm text-muted hover:text-foreground"
-              }
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-        <div className="flex items-center gap-3">
-          {userInitial ? (
+
+        {user ? (
+          <form action="/feed" role="search" className="min-w-0 flex-1 md:max-w-[560px]">
+            <label className="flex h-10 items-center gap-2.5 rounded-sm border border-foreground bg-bg px-3">
+              <SearchIcon />
+              <span className="sr-only">Suche</span>
+              <input
+                type="search"
+                name="q"
+                placeholder="Suche (z. B. Nightwalker Hoodie)"
+                className="min-w-0 flex-1 bg-transparent text-sm text-foreground placeholder:text-muted focus:outline-none"
+              />
+            </label>
+          </form>
+        ) : (
+          <div className="flex-1" />
+        )}
+
+        <div className="flex items-center gap-1 md:gap-3">
+          <Link
+            href="/watchlist"
+            aria-label="Watchlist"
+            className="flex h-11 w-11 items-center justify-center text-foreground"
+          >
+            <BookmarkIcon />
+          </Link>
+          {user ? (
             <>
               <Link
-                href="/watchlist"
-                aria-label="Watchlist"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-foreground"
+                href="/mein-feed"
+                aria-label="Mein Feed"
+                className="flex h-11 w-11 items-center justify-center text-foreground"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path
-                    d="M12 21s-7.5-4.6-10-9.3C.5 8 2.2 4.5 5.6 4c2-.3 3.9.6 5 2.2C11.7 4.6 13.6 3.7 15.6 4c3.4.5 5.1 4 3.6 7.7C16.7 16.4 12 21 12 21z"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  />
-                </svg>
+                <UserIcon />
               </Link>
-              <div className="hidden items-center gap-2 md:flex">
-                <Link
-                  href="/mein-feed"
-                  aria-label="Mein Feed"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-xs font-semibold text-bg"
-                >
-                  {userInitial}
-                </Link>
-                <form action="/logout" method="post">
-                  <button type="submit" className="text-sm text-muted hover:text-foreground">
-                    Abmelden
-                  </button>
-                </form>
-              </div>
+              <form action="/logout" method="post" className="hidden md:block">
+                <button type="submit" className="px-2 text-sm text-muted hover:text-foreground">
+                  Abmelden
+                </button>
+              </form>
             </>
           ) : (
-            <div className="hidden items-center gap-4 md:flex">
+            <div className="flex items-center gap-3">
               <Link href="/login" className="text-sm font-semibold text-foreground">
                 Login
               </Link>
               <Link
                 href="/registrierung"
-                className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-bg"
+                className="hidden rounded-sm bg-primary px-5 py-2.5 text-sm font-semibold text-bg md:block"
               >
                 Registrieren
               </Link>
             </div>
           )}
+          <span className="ml-2 hidden font-mono text-xs text-foreground md:block">CH · CHF</span>
         </div>
       </div>
+
+      <nav
+        aria-label="Kategorien"
+        className="mx-auto flex max-w-[1440px] gap-6 overflow-x-auto px-4 md:px-16"
+      >
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            aria-current={isActive(link.href) ? "page" : undefined}
+            className={`whitespace-nowrap border-b-2 py-3 text-sm ${
+              isActive(link.href)
+                ? "border-foreground font-semibold text-foreground"
+                : "border-transparent text-foreground hover:border-line"
+            }`}
+          >
+            {link.label}
+          </Link>
+        ))}
+      </nav>
     </header>
   );
 }

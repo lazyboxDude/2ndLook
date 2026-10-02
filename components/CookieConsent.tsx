@@ -8,13 +8,13 @@ export default function CookieConsent() {
   if (!bannerOpen) return null;
 
   const button =
-    "flex-1 rounded-lg border border-primary bg-primary px-4 py-2.5 text-sm font-semibold text-bg md:flex-none md:px-6";
+    "flex-1 rounded-sm border border-primary bg-primary px-4 py-2.5 text-sm font-semibold text-bg md:flex-none md:px-6";
 
   return (
     <div
       role="dialog"
       aria-label="Cookie-Einstellungen"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-placeholder bg-bg px-6 py-5 shadow-[0_-4px_24px_rgba(17,24,39,0.12)] md:px-16"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-bg px-6 py-5 shadow-[0_-4px_24px_rgba(17,24,39,0.12)] md:px-16"
     >
       <div className="mx-auto flex max-w-[1440px] flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-10">
         <p className="text-sm leading-relaxed text-muted">

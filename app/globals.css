@@ -1,18 +1,21 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-bg: #f8fafc;
-  --color-surface-hero: #dbeafe;
-  --color-placeholder: #e2e8f0;
-  --color-foreground: #111827;
-  --color-primary: #111827;
-  --color-muted: #475569;
-  --color-muted-light: #b9c4e0;
-  --color-green: #16a34a;
+  --color-bg: #f5f3f1;
+  --color-surface: #ffffff;
+  --color-surface-hero: #ece8e3;
+  --color-placeholder: #e9e5e0;
+  --color-line: #e4e0db;
+  --color-foreground: #111111;
+  --color-primary: #111111;
+  --color-muted: #6b6b6b;
+  --color-muted-light: #bdb8b1;
+  --color-green: #1f7a3d;
   --color-green-bright: #4ade80;
-  --color-green-pale: #dcebd7;
-  --color-accent: #d97706;
-  --color-destructive: #dc2626;
+  --color-green-pale: #e4f1e8;
+  --color-accent: #9a6b00;
+  --color-accent-pale: #fff1cc;
+  --color-destructive: #b42318;
 
   --font-sans: var(--font-fira-sans);
   --font-mono: var(--font-fira-code);
@@ -22,4 +25,19 @@
 body {
   background: var(--color-bg);
   color: var(--color-foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-foreground);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
