@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPostBySlug, postCategoryLabel } from "@/lib/blog";
+import SlowStreetwearArticle from "@/components/slow-streetwear/SlowStreetwearArticle";
 
 export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">) {
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
   if (!post) notFound();
+  if (post.layout === "brands") return <SlowStreetwearArticle post={post} />;
 
   return (
     <div className="mx-auto max-w-[840px] px-6 py-10 md:px-16 md:py-14">

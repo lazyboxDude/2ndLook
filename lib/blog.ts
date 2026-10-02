@@ -10,6 +10,7 @@ export type BlogPost = {
   readMinutes?: number;
   content: string[];
   pullQuote?: string;
+  layout?: "brands";
 };
 
 export const blogPosts: BlogPost[] = [
@@ -17,17 +18,15 @@ export const blogPosts: BlogPost[] = [
     slug: "die-besten-streetwear-marken-2026",
     category: "streetwear",
     categoryLabel: "Streetwear",
-    title: "Die besten Streetwear-Marken 2026",
+    title: "Die besten Slow-Streetwear-Marken 2026",
     excerpt:
-      "Ein Überblick über die Labels, die 2026 den Ton angeben — von etablierten Namen bis zu aufstrebenden Studios.",
-    publishedAt: "12. Sept 2026",
-    readMinutes: 4,
+      "Acht Labels, die auf gute Materialien, faire Produktion und lange Tragedauer setzen, mit Preisen und Versandinfos für die Schweiz.",
+    publishedAt: "2. Okt 2026",
+    readMinutes: 6,
+    layout: "brands",
     content: [
-      "Ein kurzer Überblick über die Marken, die 2026 den Ton angeben — von etablierten Labels bis zu aufstrebenden Studios, die wir laufend auf Preise und Verfügbarkeit bei autorisierten Händlern prüfen.",
-      "Struktur: Einleitung, 3-5 Marken-Abschnitte mit Bild, kurzer Fazit-Absatz.",
-      "Abschliessender Absatz mit Fazit und Link zu verwandten Artikeln oder zum Feed.",
+      "Streetwear muss nicht Hype, Drop und Wegwerfen heissen. Wir stellen acht Labels vor, die auf gute Materialien, faire Produktion und lange Tragedauer setzen. Mit Preisen und Versandinfos für die Schweiz.",
     ],
-    pullQuote: "Qualität und Verfügbarkeit bei autorisierten Händlern schlagen jeden Graumarkt-Preis.",
   },
   {
     slug: "restock-kalender-diese-drops-lohnen-sich",
