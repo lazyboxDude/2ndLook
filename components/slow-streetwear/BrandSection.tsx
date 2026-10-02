@@ -4,7 +4,7 @@ import BrandWatchButton from "./BrandWatchButton";
 
 export default function BrandSection({ brand }: { brand: Brand }) {
   return (
-    <section id={`brand-${brand.id}`} className="mt-16 scroll-mt-36">
+    <section id={`brand-${brand.id}`} className="mt-16 scroll-mt-6">
       <span className="font-mono text-xs font-semibold uppercase tracking-wider text-foreground">
         {brand.origin} · {brand.since}
       </span>
@@ -46,7 +46,7 @@ export default function BrandSection({ brand }: { brand: Brand }) {
       <div className="flex flex-wrap items-center gap-3">
         <Link
           href={`/feed?q=${encodeURIComponent(brand.name)}`}
-          className="flex h-12 items-center rounded-sm bg-primary px-6 text-sm font-semibold text-surface"
+          className="flex h-12 items-center rounded-sm bg-primary px-6 text-sm font-semibold text-bg"
         >
           Deals ansehen
         </Link>

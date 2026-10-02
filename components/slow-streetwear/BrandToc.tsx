@@ -19,7 +19,7 @@ export default function BrandToc() {
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
         if (visible.length) setActive(visible[0].target.id);
       },
-      { rootMargin: "-150px 0px -55% 0px" },
+      { rootMargin: "-24px 0px -55% 0px" },
     );
     document.querySelectorAll("section[id^='brand-']").forEach((s) => io.observe(s));
     return () => io.disconnect();
@@ -70,7 +70,7 @@ export default function BrandToc() {
         </p>
         <Link
           href="/watchlist"
-          className="flex h-10 items-center justify-center rounded-sm bg-primary text-sm font-semibold text-surface"
+          className="flex h-10 items-center justify-center rounded-sm bg-primary text-sm font-semibold text-bg"
         >
           Zur Watchlist
         </Link>

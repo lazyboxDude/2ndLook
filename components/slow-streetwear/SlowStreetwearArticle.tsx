@@ -109,14 +109,14 @@ export default function SlowStreetwearArticle({ post }: { post: BlogPost }) {
                 Setz die Marken auf deine Watchlist und schau später wieder vorbei, wenn du bereit bist.
               </p>
             </div>
-            <Link href="/watchlist" className="flex h-12 items-center rounded-sm bg-primary px-6 text-sm font-semibold text-surface">
+            <Link href="/watchlist" className="flex h-12 items-center rounded-sm bg-primary px-6 text-sm font-semibold text-bg">
               Zur Watchlist
             </Link>
           </section>
         </div>
 
         <aside aria-label="Top-Marken" className="min-w-0 max-lg:order-first">
-          <div className="lg:sticky lg:top-36">
+          <div className="lg:sticky lg:top-6">
             <BrandToc />
           </div>
         </aside>

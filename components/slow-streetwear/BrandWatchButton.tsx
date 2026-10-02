@@ -14,7 +14,7 @@ export default function BrandWatchButton({ id }: { id: string }) {
       onClick={() => toggle(brandWatchKey(id))}
       aria-pressed={watched}
       className={`flex h-12 items-center gap-2 rounded-sm border border-foreground px-6 text-sm font-semibold ${
-        watched ? "bg-foreground text-surface" : "text-foreground"
+        watched ? "bg-foreground text-bg" : "text-foreground"
       }`}
     >
       <BookmarkIcon filled={watched} size={16} />

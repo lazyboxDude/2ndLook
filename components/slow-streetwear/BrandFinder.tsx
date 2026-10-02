@@ -12,7 +12,7 @@ import {
 function chipClass(pressed: boolean) {
   return `rounded-sm border px-3.5 py-2 text-sm font-medium transition-colors ${
     pressed
-      ? "border-foreground bg-foreground text-surface"
+      ? "border-foreground bg-foreground text-bg"
       : "border-line bg-surface text-foreground hover:border-foreground"
   }`;
 }
