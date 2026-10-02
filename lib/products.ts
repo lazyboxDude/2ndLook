@@ -112,5 +112,23 @@ export function getProductBySlug(slug: string): Product | undefined {
 }
 
 export function formatChf(amount: number): string {
-  return `CHF ${amount.toFixed(2)}`;
+  return `CHF ${Number.isInteger(amount) ? amount : amount.toFixed(2)}`;
+}
+
+export type ProductCategory = Product["category"];
+
+export const categoryLabels: Record<ProductCategory, string> = {
+  streetwear: "2Wear",
+  duefte: "2Scent",
+};
+
+export const categoryIntros: Record<ProductCategory, string> = {
+  streetwear:
+    "Streetwear & Sneaker: Hoodies, Jacken, Hosen und Basics. Preise von Händlern, regelmässig geprüft.",
+  duefte:
+    "Nischendüfte & Dekants im Preisvergleich. Vom kleinen Dekant zum Ausprobieren bis zur Vollgrösse.",
+};
+
+export function isProductCategory(value: string | undefined): value is ProductCategory {
+  return value === "streetwear" || value === "duefte";
 }

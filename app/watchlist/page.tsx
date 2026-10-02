@@ -1,55 +1,48 @@
 "use client";
 
-import { products, formatChf } from "@/lib/products";
-import { DdpNote } from "@/components/DdpBadge";
-import BottomTabBar from "@/components/BottomTabBar";
-import { useWatchlist } from "@/lib/watchlist-context";
 import Link from "next/link";
+import { products } from "@/lib/products";
+import PriceCard from "@/components/PriceCard";
+import { useWatchlist } from "@/lib/watchlist-context";
 
 export default function WatchlistPage() {
   const { isWatched } = useWatchlist();
   const items = products.filter((p) => isWatched(p.slug));
+  const drops = items.filter((p) => p.status === "gefallen").length;
 
   return (
-    <>
-      <div className="mx-auto max-w-[720px] px-6 py-10 pb-24 md:py-14">
-        <h1 className="text-2xl font-bold text-foreground md:text-3xl">Watchlist</h1>
-        <div className="mt-6 flex flex-col gap-8">
-          {items.map((p) => (
-            <Link key={p.slug} href={`/produkt/${p.slug}`} className="flex flex-col gap-2">
-              <div className="relative aspect-[4/3] w-full rounded-xl bg-placeholder">
-                {p.status === "gefallen" && (
-                  <span className="absolute left-3 top-3 rounded-full bg-green-pale px-3 py-1 text-xs font-semibold text-green">
-                    Preis gefallen
-                  </span>
-                )}
-              </div>
-              <span className="font-semibold text-foreground">{p.name}</span>
-              <div className="flex items-center gap-2">
-                {p.wasPrice && (
-                  <span className="font-mono text-sm text-muted line-through">
-                    {formatChf(p.wasPrice)}
-                  </span>
-                )}
-                <span className="font-mono text-sm font-bold text-green">
-                  {formatChf(p.price)}
-                </span>
-              </div>
-              <DdpNote />
-            </Link>
-          ))}
-          {items.length === 0 && (
-            <p className="text-sm text-muted">
-              Noch nichts auf der Watchlist. Füge Preise aus dem{" "}
-              <Link href="/feed" className="text-primary underline">
-                Feed
-              </Link>{" "}
-              hinzu.
-            </p>
-          )}
-        </div>
+    <div className="mx-auto max-w-[1440px] px-4 pb-20 pt-6 md:px-16 md:pt-7">
+      <nav aria-label="Brotkrumen" className="text-[13px] text-muted">
+        <Link href="/">Home</Link> / <span className="text-foreground">Watchlist</span>
+      </nav>
+
+      <div className="mt-6 flex flex-col justify-between gap-3 md:flex-row md:items-end">
+        <h1 className="font-serif text-4xl font-medium leading-[1.05] tracking-tight text-foreground md:text-[52px]">
+          Watchlist
+        </h1>
+        {items.length > 0 && (
+          <p className="font-serif text-xl text-foreground md:text-2xl">
+            {items.length} {items.length === 1 ? "Produkt" : "Produkte"}
+            {drops > 0 && ` · ${drops} mit Preisfall`}
+          </p>
+        )}
       </div>
-      <BottomTabBar />
-    </>
+
+      {items.length > 0 ? (
+        <div className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-x-5">
+          {items.map((p) => (
+            <PriceCard key={p.slug} product={p} />
+          ))}
+        </div>
+      ) : (
+        <p className="mt-8 text-sm text-muted">
+          Noch nichts auf der Watchlist. Merke dir Preise aus dem{" "}
+          <Link href="/feed" className="text-foreground underline">
+            Feed
+          </Link>
+          .
+        </p>
+      )}
+    </div>
   );
 }

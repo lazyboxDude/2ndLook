@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { blogPosts } from "@/lib/blog";
+import { blogPosts, postCategoryLabel } from "@/lib/blog";
 
 const titles: Record<string, string> = {
-  streetwear: "Streetwear",
-  duefte: "Düfte",
+  streetwear: "2Wear",
+  duefte: "2Scent",
 };
 
 export default async function BlogPage({ searchParams }: PageProps<"/blog">) {
@@ -23,9 +23,9 @@ export default async function BlogPage({ searchParams }: PageProps<"/blog">) {
       <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 md:grid-cols-3">
         {posts.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`} className="flex flex-col gap-3">
-            <div className="aspect-[8/5] w-full rounded-xl bg-placeholder" />
+            <div className="aspect-[8/5] w-full bg-placeholder" />
             <span className="text-xs font-bold uppercase text-muted-light">
-              {post.categoryLabel} · {post.publishedAt}
+              {postCategoryLabel(post)} · {post.publishedAt}
               {post.readMinutes ? ` · ${post.readMinutes} Min` : ""}
             </span>
             <span className="text-lg font-bold text-foreground">{post.title}</span>

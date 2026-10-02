@@ -102,3 +102,9 @@ export const blogPosts: BlogPost[] = [
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug);
 }
+
+export function postCategoryLabel(post: BlogPost): string {
+  if (post.category === "streetwear") return "2Wear";
+  if (post.category === "duefte") return "2Scent";
+  return post.categoryLabel;
+}
